@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HALA Agent Experience: Built by a PM who ships</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.x/dist/tabler-icons.min.css">
+<!-- counter.dev analytics, tracks visits silently -->
+<script src="https://cdn.counter.dev/script.js" data-id="7bd7f3e0-56ee-446b-8d0e-6ef619923924" data-utcoffset="5"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#1B8A5A;--gl:#E8F5EE;--gm:#2AAB72;--gd:#0F6E46;
+  --bg:#F5F6F8;--card:#FFFFFF;--border:#E4E6EA;
+  --text:#1A1A2E;--muted:#6B7280;--sub:#9CA3AF;
+  --red:#E53935;--orange:#FB8C00;--blue:#1565C0;--purple:#6A1B9A;
+  --font:'Inter',sans-serif;--font-ar:'IBM Plex Sans Arabic',sans-serif;
+}
+[data-lang="ar"]{font-family:var(--font-ar);direction:rtl}
+[data-lang="en"]{font-family:var(--font);direction:ltr}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+
+/* ── LANG TOGGLE ── */
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--g);padding:8px 24px;display:flex;align-items:center;justify-content:space-between}
+.lang-bar-left{display:flex;align-items:center;gap:10px;color:white;font-size:13px;font-weight:500}
+.lang-logo{width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:white}
+.lang-btns{display:flex;gap:6px}
+.lbtn{padding:5px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid rgba(255,255,255,0.4);color:white;background:transparent;transition:all 0.2s;font-family:inherit}
+.lbtn.on{background:white;color:var(--g);border-color:white}
+
+/* ── MAIN LAYOUT ── */
+.main-wrap{padding-top:54px;padding-bottom:32px;max-width:1100px;margin:0 auto}
+
+/* ── STORY SECTION ── */
+.story-section{padding:24px 20px 0}
+.story-card{background:var(--card);border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-bottom:20px;transition:all 0.4s}
+.story-head{background:var(--g);padding:18px 22px;display:flex;align-items:center;gap:14px}
+.sh-icon{width:42px;height:42px;background:rgba(255,255,255,0.18);border-radius:11px;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;flex-shrink:0}
+.sh-title{color:white;font-size:16px;font-weight:600}
+.sh-sub{color:rgba(255,255,255,0.72);font-size:12px;margin-top:3px}
+.story-body{padding:20px 22px}
+.scene-nav{display:flex;gap:0;margin-bottom:18px;position:relative}
+.scene-nav::before{content:'';position:absolute;top:14px;left:14px;right:14px;height:2px;background:var(--border);z-index:0}
+.sn-step{flex:1;display:flex;flex-direction:column;align-items:center;cursor:pointer;position:relative;z-index:1}
+.sn-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;transition:all 0.3s;border:2px solid var(--border);background:var(--bg);color:var(--muted)}
+.sn-step.done .sn-dot{background:var(--g);border-color:var(--g);color:white}
+.sn-step.active .sn-dot{background:white;border-color:var(--g);color:var(--g);box-shadow:0 0 0 4px var(--gl)}
+.sn-lbl{font-size:10px;color:var(--muted);margin-top:6px;text-align:center}
+.sn-step.active .sn-lbl{color:var(--g);font-weight:500}
+.scene-content{background:#F8FAFC;border-radius:12px;padding:16px 18px;min-height:80px;transition:all 0.3s}
+.sc-tag{font-size:10px;text-transform:uppercase;letter-spacing:0.09em;color:var(--g);font-weight:600;margin-bottom:8px}
+.sc-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.4}
+.sc-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.sc-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:5px 12px;border-radius:7px;margin-top:10px;font-weight:500}
+.sc-badge.pain{background:#FFEBEE;color:#C62828}
+.sc-badge.fix{background:var(--gl);color:var(--gd)}
+.scene-nav-btns{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+.snb{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);font-family:inherit;transition:all 0.2s}
+.snb:hover{background:var(--bg)}
+.snb.primary{background:var(--g);color:white;border-color:var(--g)}
+.snb.primary:hover{background:var(--gd)}
+
+/* ── VIEW TOGGLE ── */
+.view-toggle{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:16px}
+.vt-lbl{font-size:13px;color:var(--muted)}
+.vt-wrap{display:flex;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:3px;gap:2px}
+.vbtn{padding:7px 16px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:inherit;display:flex;align-items:center;gap:6px;transition:all 0.2s}
+.vbtn.on{background:var(--g);color:white}
+.vbtn i{font-size:15px}
+
+/* ── DESKTOP APP ── */
+.desktop-wrap{padding:0 20px;display:block}
+.desktop-app{display:flex;height:600px;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+.sidebar{width:220px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.s-logo{padding:18px 16px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.s-lmark{width:32px;height:32px;background:var(--g);border-radius:9px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:15px}
+.s-ltext{font-weight:700;font-size:15px;color:var(--text)}
+.s-agent{margin:12px 10px;background:var(--gl);border-radius:10px;padding:10px 12px}
+.sa-name{font-weight:600;font-size:12px;color:var(--gd);display:flex;align-items:center;gap:5px}
+.sa-dot{width:7px;height:7px;border-radius:50%;background:var(--g)}
+.sa-role{font-size:10px;color:var(--g);margin-top:3px}
+nav.snav{flex:1;padding:8px}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;cursor:pointer;color:var(--muted);font-size:13px;transition:all 0.18s;margin-bottom:2px;font-weight:500}
+.ni:hover{background:var(--gl);color:var(--gd)}
+.ni.active{background:var(--g);color:white}
+.ni i{font-size:17px}
+.ni .badge{margin-left:auto;background:var(--red);color:white;font-size:9px;border-radius:8px;padding:1px 6px;font-weight:600}
+.nl{font-size:9px;text-transform:uppercase;letter-spacing:0.09em;color:var(--sub);padding:10px 10px 3px;font-weight:600}
+.d-main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.d-topbar{background:var(--card);border-bottom:1px solid var(--border);padding:14px 22px;display:flex;align-items:center;gap:14px}
+.dt-title{font-size:16px;font-weight:600;color:var(--text);flex:1}
+.dt-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.dt-pill{background:var(--gl);color:var(--gd);font-size:11px;padding:4px 12px;border-radius:20px;font-weight:600}
+.d-content{flex:1;overflow-y:auto;padding:20px 22px;display:flex;gap:18px}
+.lc{flex:1;display:flex;flex-direction:column;gap:16px;min-width:0}
+.rc{width:290px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.ct{font-size:13px;font-weight:600;color:var(--text);margin-bottom:13px;display:flex;align-items:center;gap:8px}
+.ct i{font-size:16px;color:var(--g)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.metric{background:var(--bg);border-radius:10px;padding:12px 14px;border:1px solid var(--border)}
+.mv{font-size:22px;font-weight:700;color:var(--text)}
+.ml{font-size:11px;color:var(--muted);margin-top:3px}
+.mc{font-size:11px;color:var(--g);margin-top:4px;font-weight:500}
+.plist{display:flex;flex-direction:column;gap:8px}
+.pi{display:flex;align-items:center;gap:11px;padding:10px 12px;background:var(--bg);border-radius:9px;cursor:pointer;transition:background 0.15s;border:1px solid transparent}
+.pi:hover{background:var(--gl);border-color:var(--border)}
+.pa{width:36px;height:36px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0}
+.pn{font-size:13px;font-weight:600;color:var(--text)}
+.pb{font-size:10px;color:var(--muted);margin-top:1px}
+.ps{margin-left:auto;font-size:10px;padding:3px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
+.s-kyc{background:#FFF8E1;color:#E65100}
+.s-rev{background:#F3E5F5;color:#6A1B9A}
+.s-new{background:#E3F2FD;color:#1565C0}
+.s-act{background:#E8F5E9;color:#2E7D32}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg-full{grid-column:span 2}
+.fl{font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:500}
+.fi{width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;color:var(--text);background:var(--bg);font-family:inherit;transition:border-color 0.2s}
+.fi:focus{outline:none;border-color:var(--g)}
+.fsel{width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;color:var(--text);background:var(--bg);font-family:inherit}
+.upload-zone{border:2px dashed var(--border);border-radius:10px;padding:16px;text-align:center;font-size:12px;color:var(--muted);cursor:pointer;background:var(--bg);transition:all 0.2s}
+.upload-zone:hover{border-color:var(--g);background:var(--gl)}
+.upload-zone i{font-size:20px;display:block;margin-bottom:5px;color:var(--g)}
+.form-actions{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--g);color:white;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.2s}
+.btn-primary:hover{background:var(--gd)}
+.ai-hint{display:none;margin-top:12px;padding:11px 13px;background:var(--gl);border-radius:9px;font-size:12px;color:var(--gd);line-height:1.55;border-left:3px solid var(--g)}
+.step-bar{display:flex;align-items:flex-start;gap:0;margin-bottom:16px}
+.step-item{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.step-item:not(:last-child)::after{content:'';position:absolute;top:12px;left:50%;width:100%;height:2px;z-index:0}
+.step-item.done::after{background:var(--g)}
+.step-item.pend::after{background:var(--border)}
+.step-circ{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;z-index:1;position:relative}
+.step-item.done .step-circ{background:var(--g);color:white}
+.step-item.curr .step-circ{background:white;border:2px solid var(--g);color:var(--g)}
+.step-item.pend .step-circ{background:var(--bg);border:2px solid var(--border);color:var(--muted)}
+.step-lbl{font-size:10px;color:var(--muted);margin-top:5px;text-align:center}
+.step-item.curr .step-lbl{color:var(--g);font-weight:600}
+/* CHAT */
+.chat-wrap{display:flex;flex-direction:column;height:320px}
+.chat-msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-bottom:4px}
+.msg-ai{align-self:flex-start;max-width:90%}
+.msg-user{align-self:flex-end;max-width:90%}
+.mbub{padding:9px 12px;border-radius:10px;font-size:12px;line-height:1.55}
+.msg-ai .mbub{background:var(--gl);color:#0F4D30;border-bottom-left-radius:3px}
+.msg-user .mbub{background:var(--g);color:white;border-bottom-right-radius:3px}
+.msend{font-size:10px;color:var(--muted);margin-bottom:3px;display:flex;align-items:center;gap:5px}
+.ai-badge{width:16px;height:16px;background:var(--g);border-radius:4px;display:inline-flex;align-items:center;justify-content:center;color:white;font-size:8px;font-weight:700}
+.qchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{font-size:11px;border:1px solid var(--g);color:var(--g);border-radius:12px;padding:4px 10px;cursor:pointer;background:transparent;font-family:inherit;transition:all 0.15s;font-weight:500}
+.chip:hover{background:var(--gl)}
+.mode-tab{padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--muted);font-family:inherit;transition:all 0.18s}
+.mode-tab:hover{background:var(--gl);color:var(--gd);border-color:var(--g)}
+.mode-tab.active{background:var(--g);color:white;border-color:var(--g)}
+.ai-result{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:13px 14px;font-size:12px;line-height:1.7;color:var(--text)}
+.ai-result-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;color:var(--g);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.result-row{display:flex;gap:8px;margin-bottom:6px;align-items:flex-start}
+.result-key{font-size:11px;color:var(--muted);font-weight:500;min-width:110px;flex-shrink:0}
+.result-val{font-size:12px;color:var(--text);font-weight:500}
+.flag-item{display:flex;align-items:flex-start;gap:7px;padding:8px 10px;border-radius:8px;margin-bottom:6px;font-size:12px}
+.flag-ok{background:#E8F5E9;color:#2E7D32}
+.flag-warn{background:#FFF8E1;color:#E65100}
+.flag-bad{background:#FFEBEE;color:#C62828}
+.coach-bubble{background:var(--gl);border-left:3px solid var(--g);border-radius:0 8px 8px 0;padding:10px 13px;font-size:12px;color:var(--gd);line-height:1.6;margin-bottom:8px}
+.ai-loading{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);padding:12px 0}
+.spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--g);border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.chat-row{display:flex;gap:8px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:12px;font-family:inherit;background:var(--bg);color:var(--text);resize:none}
+.chat-input:focus{outline:none;border-color:var(--g)}
+.chat-send{background:var(--g);color:white;border:none;border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}
+.chat-send:hover{background:var(--gd)}
+.typing{display:flex;align-items:center;gap:4px;padding:9px 12px;background:var(--gl);border-radius:10px;width:fit-content;border-bottom-left-radius:3px}
+.tdot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:bounce 1.2s infinite}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+/* TASKS */
+.task-list{display:flex;flex-direction:column;gap:7px}
+.task-item{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--bg);border-radius:9px}
+.task-check{width:16px;height:16px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all 0.2s}
+.task-check.done{background:var(--g);border-color:var(--g);color:white}
+.task-text{font-size:12px;color:var(--text);line-height:1.4;font-weight:500}
+.task-meta{font-size:10px;color:var(--muted);margin-top:2px}
+.pdot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px}
+.ph{background:var(--red)}.pm{background:var(--orange)}.pl{background:var(--g)}
+
+/* ── MOBILE PHONE ── */
+.mobile-wrap{padding:0 20px;display:none;justify-content:center}
+.phone-shell{width:340px;background:var(--card);border-radius:44px;border:3px solid #1a1a2e;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.22);position:relative}
+.phone-notch{background:#1a1a2e;height:30px;display:flex;align-items:center;justify-content:center}
+.notch-pill{background:#111;width:88px;height:20px;border-radius:12px}
+.phone-status{display:flex;justify-content:space-between;align-items:center;padding:6px 20px 2px;font-size:10px;font-weight:600;color:var(--text);background:var(--card)}
+.m-screen{height:620px;overflow:hidden;position:relative;background:var(--bg)}
+.m-page{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),opacity 0.35s ease;background:var(--bg)}
+.m-page.hidden{transform:translateX(20px);opacity:0;pointer-events:none}
+/* mobile header */
+.mhead{background:var(--g);padding:16px 18px 18px;color:white}
+.mh-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.mh-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px}
+.mh-lm{width:28px;height:28px;background:rgba(255,255,255,0.22);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.mh-greet{font-size:15px;font-weight:600}
+.mh-sub{font-size:11px;opacity:0.72;margin-top:3px}
+.mh-stats{display:flex;gap:8px;margin-top:13px}
+.mhstat{background:rgba(255,255,255,0.16);border-radius:10px;padding:9px 11px;flex:1;text-align:center}
+.mhstat-v{font-size:17px;font-weight:700}
+.mhstat-l{font-size:9px;opacity:0.8;margin-top:2px}
+/* mobile cards */
+.mcard{background:var(--card);border-radius:13px;margin:0 13px 13px;border:1px solid var(--border)}
+.mcard-h{padding:13px 15px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.mcard-h i{font-size:15px;color:var(--g)}
+.mcard-b{padding:13px 15px}
+.mfi{width:100%;border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:13px;color:var(--text);background:var(--bg);font-family:inherit;margin-bottom:10px}
+.mfi:focus{outline:none;border-color:var(--g)}
+.mfsel{width:100%;border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:13px;color:var(--text);background:var(--bg);font-family:inherit;margin-bottom:10px}
+.mupload{border:2px dashed var(--border);border-radius:11px;padding:16px;text-align:center;font-size:12px;color:var(--muted);cursor:pointer;background:var(--bg);margin-bottom:10px}
+.mupload i{font-size:20px;display:block;margin-bottom:5px;color:var(--g)}
+.mbtn{background:var(--g);color:white;border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;transition:background 0.2s}
+.mbtn:hover{background:var(--gd)}
+.m-bnav{display:flex;background:var(--card);border-top:1px solid var(--border);position:sticky;bottom:0}
+.mbn{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 0;cursor:pointer;color:var(--muted);font-size:9px;gap:3px;transition:color 0.15s;font-weight:500;position:relative}
+.mbn.active{color:var(--g)}
+.mbn i{font-size:22px}
+.mbn-badge{width:6px;height:6px;border-radius:50%;background:var(--red);position:absolute;top:7px;right:calc(50% - 16px)}
+.mpi{display:flex;align-items:center;gap:11px;padding:12px 15px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s}
+.mpi:hover{background:var(--gl)}
+.mpa{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;flex-shrink:0}
+.mpn{font-size:13px;font-weight:600;color:var(--text)}
+.mpb{font-size:10px;color:var(--muted);margin-top:2px}
+.mps{margin-left:auto;font-size:10px;padding:3px 9px;border-radius:6px;font-weight:600}
+.m-ai-msgs{height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding-bottom:4px}
+.mcir{display:flex;gap:7px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
+.mci{flex:1;border:1px solid var(--border);border-radius:9px;padding:9px 11px;font-size:13px;font-family:inherit;background:var(--bg);color:var(--text)}
+.mci:focus{outline:none;border-color:var(--g)}
+.mcs{background:var(--g);color:white;border:none;border-radius:9px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mqc{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+/* info bar */
+.info-bar{padding:8px 13px;background:#FFF8E1;border-bottom:1px solid #FFE082;font-size:11px;color:#7B4A00;display:flex;align-items:center;gap:6px;font-weight:500}
+
+/* AR overrides */
+[data-lang="ar"] .ni{flex-direction:row-reverse}
+[data-lang="ar"] .ni .badge{margin-left:0;margin-right:auto}
+[data-lang="ar"] .form-actions{justify-content:flex-start}
+[data-lang="ar"] .ai-hint{border-left:none;border-right:3px solid var(--g)}
+[data-lang="ar"] .ps,[data-lang="ar"] .mps{margin-left:0;margin-right:auto}
+[data-lang="ar"] .sidebar{border-right:none;border-left:1px solid var(--border)}
+[data-lang="ar"] .m-page.hidden{transform:translateX(-20px)}
+</style>
+</head>
+<body data-lang="en">
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="lang-bar-left">
+    <div class="lang-logo">H</div>
+    <span id="lb-title">HALA Agent Experience: Prototype</span>
+  </div>
+  <div class="lang-btns">
+    <button class="lbtn on" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lbtn" id="btn-ar" onclick="setLang('ar')">عربي</button>
+  </div>
+</div>
+
+
+<div class="main-wrap">
+
+  <!-- STORY -->
+  <div class="story-section">
+    <div class="story-card">
+      <div class="story-head">
+        <div class="sh-icon"><i class="ti ti-bulb"></i></div>
+        <div>
+          <div class="sh-title" data-en="The problem we're solving for HALA agents" data-ar="المشكلة التي نحلها لوكلاء HALA">The problem we're solving for HALA agents</div>
+          <div class="sh-sub" data-en="A product story in 4 acts" data-ar="قصة المنتج في 4 فصول">A product story in 4 acts</div>
+        </div>
+      </div>
+      <div class="story-body">
+        <div class="scene-nav" id="scene-nav">
+          <div class="sn-step done" onclick="goScene(0)"><div class="sn-dot">✓</div><div class="sn-lbl" data-en="The gap" data-ar="الفجوة">The gap</div></div>
+          <div class="sn-step active" onclick="goScene(1)"><div class="sn-dot">2</div><div class="sn-lbl" data-en="Lost in field" data-ar="ضائع في الميدان">Lost in field</div></div>
+          <div class="sn-step" onclick="goScene(2)"><div class="sn-dot">3</div><div class="sn-lbl" data-en="The fix" data-ar="الحل">The fix</div></div>
+          <div class="sn-step" onclick="goScene(3)"><div class="sn-dot">4</div><div class="sn-lbl" data-en="The result" data-ar="النتيجة">The result</div></div>
+        </div>
+        <div class="scene-content">
+          <div class="sc-tag" id="sc-tag">The problem</div>
+          <div class="sc-title" id="sc-title">HALA agents are losing merchants in the field</div>
+          <div class="sc-desc" id="sc-desc">A field agent visits a merchant. They collect info on paper, WhatsApp details to the office, wait for KYC approval, follow up days later. By then the merchant has gone cold, or already signed with a competitor.</div>
+          <div id="sc-badge"><span class="sc-badge pain"><i class="ti ti-alert-circle" style="font-size:13px"></i> Avg onboarding time: 3–5 days. Merchant drop-off: ~40%</span></div>
+        </div>
+        <div class="scene-nav-btns">
+          <button class="snb" id="snb-back" onclick="prevScene()" style="display:none" data-en="← Back" data-ar="→ رجوع">← Back</button>
+          <button class="snb primary" id="snb-next" onclick="nextScene()" data-en="Next →" data-ar="التالي ←">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW TOGGLE -->
+  <div class="view-toggle">
+    <span class="vt-lbl" data-en="View as:" data-ar="عرض كـ:">View as:</span>
+    <div class="vt-wrap">
+      <button class="vbtn on" id="vb-desk" onclick="switchView('desktop')"><i class="ti ti-device-laptop"></i><span data-en="Desktop" data-ar="سطح المكتب">Desktop</span></button>
+      <button class="vbtn" id="vb-mob" onclick="switchView('mobile')"><i class="ti ti-device-mobile"></i><span data-en="Mobile" data-ar="جوال">Mobile</span></button>
+    </div>
+  </div>
+
+  <!-- DESKTOP VIEW -->
+  <div class="desktop-wrap" id="view-desktop">
+    <div class="desktop-app">
+      <div class="sidebar">
+        <div class="s-logo"><div class="s-lmark">H</div><div class="s-ltext">HALA Agent</div></div>
+        <div class="s-agent">
+          <div class="sa-name"><div class="sa-dot"></div><span data-en="Ahmed Al-Rashidi" data-ar="أحمد الراشدي">Ahmed Al-Rashidi</span></div>
+          <div class="sa-role" data-en="Senior Field Agent · Riyadh" data-ar="وكيل ميداني أول · الرياض">Senior Field Agent · Riyadh</div>
+        </div>
+        <nav class="snav">
+          <div class="nl" data-en="WORKSPACE" data-ar="مساحة العمل">WORKSPACE</div>
+          <div class="ni active" id="ni-dash" onclick="dShow('dash')"><i class="ti ti-layout-dashboard"></i><span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></div>
+          <div class="ni" id="ni-onboard" onclick="dShow('onboard')"><i class="ti ti-user-plus"></i><span data-en="Onboard Merchant" data-ar="تسجيل تاجر">Onboard Merchant</span></div>
+          <div class="ni" id="ni-pipe" onclick="dShow('pipe')"><i class="ti ti-users"></i><span data-en="My Pipeline" data-ar="قائمة العملاء">My Pipeline</span><span class="badge">4</span></div>
+          <div class="nl" data-en="SUPPORT" data-ar="الدعم">SUPPORT</div>
+          <div class="ni" id="ni-ai" onclick="dShow('ai')"><i class="ti ti-robot"></i><span data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</span></div>
+          <div class="ni"><i class="ti ti-chart-bar"></i><span data-en="Performance" data-ar="الأداء">Performance</span></div>
+        </nav>
+      </div>
+      <div class="d-main">
+        <div class="d-topbar">
+          <div>
+            <div class="dt-title" id="d-title" data-en="Good morning, Ahmed 👋" data-ar="صباح الخير، أحمد 👋">Good morning, Ahmed 👋</div>
+            <div class="dt-sub" id="d-sub" data-en="Tuesday 19 May · Riyadh Region" data-ar="الثلاثاء 19 مايو · منطقة الرياض">Tuesday 19 May · Riyadh Region</div>
+          </div>
+          <div class="dt-pill" data-en="4 tasks today" data-ar="4 مهام اليوم">4 tasks today</div>
+          <i class="ti ti-bell" style="font-size:20px;color:var(--muted);cursor:pointer"></i>
+        </div>
+        <div class="d-content">
+          <div class="lc">
+
+            <!-- DASH -->
+            <div id="d-dash" class="card">
+              <div class="ct"><i class="ti ti-chart-bar"></i><span data-en="Performance this month" data-ar="الأداء هذا الشهر">Performance this month</span></div>
+              <div class="metrics">
+                <div class="metric"><div class="mv">12</div><div class="ml" data-en="Merchants onboarded" data-ar="تجار مُسجَّلون">Merchants onboarded</div><div class="mc" data-en="↑ 3 vs last month" data-ar="↑ 3 مقارنة بالشهر الماضي">↑ 3 vs last month</div></div>
+                <div class="metric"><div class="mv">SAR 84K</div><div class="ml" data-en="GMV generated" data-ar="حجم المعاملات">GMV generated</div><div class="mc" data-en="↑ 18% vs target" data-ar="↑ 18% من الهدف">↑ 18% vs target</div></div>
+                <div class="metric"><div class="mv">94%</div><div class="ml" data-en="Activation rate" data-ar="معدل التفعيل">Activation rate</div><div class="mc" data-en="↑ 6pp vs avg" data-ar="↑ 6 نقاط فوق المتوسط">↑ 6pp vs avg</div></div>
+              </div>
+            </div>
+
+            <!-- ONBOARD -->
+            <div id="d-onboard" class="card" style="display:none">
+              <div class="ct"><i class="ti ti-user-plus"></i><span data-en="Onboard new merchant" data-ar="تسجيل تاجر جديد">Onboard new merchant</span></div>
+              <div class="step-bar">
+                <div class="step-item done pend"><div class="step-circ">✓</div><div class="step-lbl" data-en="Business info" data-ar="بيانات المنشأة">Business info</div></div>
+                <div class="step-item curr pend"><div class="step-circ">2</div><div class="step-lbl" data-en="KYC docs" data-ar="مستندات الهوية">KYC docs</div></div>
+                <div class="step-item pend pend"><div class="step-circ">3</div><div class="step-lbl" data-en="Product setup" data-ar="إعداد المنتج">Product setup</div></div>
+                <div class="step-item pend"><div class="step-circ">4</div><div class="step-lbl" data-en="Activation" data-ar="التفعيل">Activation</div></div>
+              </div>
+              <div style="background:var(--gl);border-radius:9px;padding:9px 12px;font-size:12px;color:var(--gd);margin-bottom:13px;font-weight:500">
+                <i class="ti ti-info-circle" style="font-size:14px;vertical-align:-2px;margin-right:5px"></i><span data-en="Step 2: Upload KYC documents for Al-Noor Bakery" data-ar="الخطوة 2: رفع مستندات التحقق من الهوية لمخبز النور">Step 2: Upload KYC documents for Al-Noor Bakery</span>
+              </div>
+              <div class="form-grid">
+                <div><div class="fl" data-en="Business name" data-ar="اسم المنشأة">Business name</div><input class="fi" id="d-bname" value="Al-Noor Bakery" readonly></div>
+                <div><div class="fl" data-en="Owner name" data-ar="اسم المالك">Owner name</div><input class="fi" id="d-oname" value="Mohammed Al-Sayed" readonly></div>
+                <div><div class="fl" data-en="CR number" data-ar="رقم السجل التجاري">CR number</div><input class="fi" placeholder="e.g. 1010123456" id="d-cr"></div>
+                <div><div class="fl" data-en="Business type" data-ar="نوع النشاط">Business type</div>
+                  <select class="fsel"><option data-en="Retail - Food & Beverage" data-ar="تجزئة - مواد غذائية">Retail - Food & Beverage</option><option data-en="Retail - General" data-ar="تجزئة - عام">Retail - General</option><option data-en="Services" data-ar="خدمات">Services</option></select>
+                </div>
+                <div class="fg-full"><div class="fl" data-en="ID document upload" data-ar="رفع وثيقة الهوية">ID document upload</div>
+                  <div class="upload-zone"><i class="ti ti-upload"></i><span data-en="Tap to upload national ID or passport" data-ar="انقر لرفع الهوية الوطنية أو جواز السفر">Tap to upload national ID or passport</span></div>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn-ghost" data-en="Save draft" data-ar="حفظ مسودة">Save draft</button>
+                <button class="btn-primary" onclick="dShowHint()" data-en="Verify & continue →" data-ar="تحقق وتابع →">Verify & continue →</button>
+              </div>
+              <div class="ai-hint" id="d-hint">
+                <strong><i class="ti ti-robot" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span data-en="AI check:" data-ar="فحص ذكاء اصطناعي:">AI check:</span></strong>
+                <span data-en=" CR format looks valid. Al-Noor Bakery needs a valid SFDA food trading license for payment processing approval. Add a compliance note?" data-ar=" صيغة السجل التجاري تبدو صحيحة. يحتاج مخبز النور إلى ترخيص تجارة غذاء ساري من هيئة الغذاء والدواء. هل تريد إضافة ملاحظة امتثال؟"> CR format looks valid. Al-Noor Bakery needs a valid SFDA food trading license for payment processing approval. Add a compliance note?</span>
+              </div>
+            </div>
+
+            <!-- PIPELINE -->
+            <div id="d-pipe" class="card" style="display:none">
+              <div class="ct"><i class="ti ti-users"></i><span data-en="Active pipeline" data-ar="قائمة التجار النشطة">Active pipeline</span></div>
+              <div class="plist">
+                <div class="pi"><div class="pa">AN</div><div><div class="pn" data-en="Al-Noor Bakery" data-ar="مخبز النور">Al-Noor Bakery</div><div class="pb" data-en="Retail · Mohammed Al-Sayed" data-ar="تجزئة · محمد السيد">Retail · Mohammed Al-Sayed</div></div><span class="ps s-kyc" data-en="KYC pending" data-ar="بانتظار التحقق">KYC pending</span></div>
+                <div class="pi"><div class="pa" style="background:var(--blue)">SF</div><div><div class="pn" data-en="Star Fitness Center" data-ar="مركز ستار للياقة">Star Fitness Center</div><div class="pb" data-en="Services · Fahad Al-Qahtani" data-ar="خدمات · فهد القحطاني">Services · Fahad Al-Qahtani</div></div><span class="ps s-rev" data-en="In review" data-ar="قيد المراجعة">In review</span></div>
+                <div class="pi"><div class="pa" style="background:var(--purple)">TG</div><div><div class="pn" data-en="Tech Gulf Trading" data-ar="تك خليج للتجارة">Tech Gulf Trading</div><div class="pb" data-en="Electronics · Sara Al-Otaibi" data-ar="إلكترونيات · سارة العتيبي">Electronics · Sara Al-Otaibi</div></div><span class="ps s-new" data-en="New lead" data-ar="عميل جديد">New lead</span></div>
+                <div class="pi"><div class="pa" style="background:#2E7D32">NF</div><div><div class="pn" data-en="Noor Fashion" data-ar="نور للأزياء">Noor Fashion</div><div class="pb" data-en="Retail · Noura Al-Harbi" data-ar="تجزئة · نورة الحربي">Retail · Noura Al-Harbi</div></div><span class="ps s-act" data-en="Activated" data-ar="مفعّل">Activated</span></div>
+              </div>
+            </div>
+
+            <!-- AI AGENT full: 4 modes -->
+            <div id="d-ai" class="card" style="display:none">
+              <div class="ct"><i class="ti ti-robot"></i><span>HALA AI Agent: 4 capabilities</span></div>
+              <div id="agent-modes">
+              <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+                <button class="mode-tab active" id="tab-pitch" onclick="setMode('pitch')"><i class="ti ti-speakerphone" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Pitch Builder</span></button>
+                <button class="mode-tab" id="tab-profiler" onclick="setMode('profiler')"><i class="ti ti-user-search" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Merchant Profiler</span></button>
+                <button class="mode-tab" id="tab-compliance" onclick="setMode('compliance')"><i class="ti ti-shield-check" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Compliance Check</span></button>
+                <button class="mode-tab" id="tab-objection" onclick="setMode('objection')"><i class="ti ti-message-2" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Objection Handler</span></button>
+              </div>
+              <!-- PITCH BUILDER: shown first -->
+              <div id="mode-pitch">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:9px;line-height:1.5">Describe the merchant before your visit. AI builds a personalised 60-second HALA pitch tailored to their business, size, and pain points. Read it before you walk in.</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px">
+                  <button class="chip" onclick="pitchFill('Restaurant owner in Riyadh, currently uses cash and manual billing, 20 staff, busy lunch crowd, no POS yet')">Cash-only restaurant</button>
+                  <button class="chip" onclick="pitchFill('Small supermarket in Jeddah, uses a basic old POS, owner complains about slow settlement from current provider')">Unhappy with POS</button>
+                  <button class="chip" onclick="pitchFill('New ladies salon in Riyadh, just opened 2 months ago, wants to accept card payments and track daily sales')">New salon just opened</button>
+                </div>
+                <textarea id="pitch-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Auto parts shop in Dammam, 15 staff, owner uses Excel for inventory, no digital payments yet..."></textarea>
+                <button class="btn-primary" style="width:100%" onclick="runPitch()" id="btn-pitch"><i class="ti ti-speakerphone" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Build my pitch →</button>
+                <div id="pitch-output" style="display:none;margin-top:12px"></div>
+              </div>
+              <!-- PROFILER -->
+              <div id="mode-profiler" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:9px;line-height:1.5" data-en="Describe any business in plain words and AI instantly builds their full HALA onboarding profile." data-ar="صف أي نشاط تجاري بكلمات بسيطة , يبني الذكاء الاصطناعي ملف التسجيل كاملاً فوراً.">Describe any business in plain words and AI instantly builds their full HALA onboarding profile.</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px">
+                  <button class="chip" onclick="profilerFill('Small coffee shop in Al Olaya Riyadh, owner is Khalid Al-Harbi, sells coffee and light meals, 8 staff, est 2021')">Coffee shop</button>
+                  <button class="chip" onclick="profilerFill('Ladies fashion boutique in Jeddah, sells abayas and modest wear, owner is Mona Al-Zahrani, 3 staff')">Fashion boutique</button>
+                  <button class="chip" onclick="profilerFill('Auto spare parts wholesale in Dammam, owner Abdullah Al-Qahtani, 15 staff, established 2018, B2B focus')">Auto parts</button>
+                </div>
+                <textarea id="profiler-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Small grocery in Riyadh, owner is Faisal, sells fresh produce and dairy, 5 staff..."></textarea>
+                <button class="btn-primary" style="width:100%" onclick="runProfiler()" id="btn-profiler"><i class="ti ti-sparkles" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i><span data-en="Build merchant profile →" data-ar="بناء ملف التاجر →">Build merchant profile →</span></button>
+                <div id="profiler-output" style="display:none;margin-top:12px"></div>
+              </div>
+              <!-- COMPLIANCE -->
+              <div id="mode-compliance" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:9px;line-height:1.5" data-en="Paste merchant details and AI scans for compliance gaps before you submit so no application gets rejected." data-ar="الصق بيانات التاجر , يفحص الذكاء الاصطناعي ثغرات الامتثال قبل التقديم.">Paste merchant details. AI scans for compliance gaps before you submit so no application gets rejected.</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px">
+                  <button class="chip" onclick="complianceFill('Business: Al-Noor Bakery, Type: Food & Beverage, CR: provided, Owner ID: provided, Bank statement: provided, SFDA food license: not provided')">Missing SFDA license</button>
+                  <button class="chip" onclick="complianceFill('Business: Tech Gulf Electronics, Type: Electronics retail, CR: provided, Owner ID: provided, Bank statement: 1 month only, VAT certificate: not provided')">Incomplete docs</button>
+                  <button class="chip" onclick="complianceFill('Business: Star Fitness Center, Type: Gym/Services, CR: provided, Owner ID: provided, Bank statement: 3 months, Municipality license: provided, all documents complete and valid')">Clean application</button>
+                </div>
+                <textarea id="compliance-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="Business name, type, documents submitted, any missing items..."></textarea>
+                <button class="btn-primary" style="width:100%" onclick="runComplianceCheck()" id="btn-compliance"><i class="ti ti-shield-search" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i><span data-en="Scan for compliance gaps →" data-ar="فحص ثغرات الامتثال →">Scan for compliance gaps →</span></button>
+                <div id="compliance-output" style="display:none;margin-top:12px"></div>
+              </div>
+              <!-- OBJECTION HANDLER -->
+              <div id="mode-objection" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:9px;line-height:1.5" data-en="Tell the AI what the merchant just said and get an instant coached response to win the deal." data-ar="أخبر الذكاء الاصطناعي بما قاله التاجر , احصل على رد فوري مناسب لإتمام الصفقة.">Tell the AI what the merchant just said and get an instant coached response to win the deal.</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px">
+                  <button class="chip" onclick="objectionFill('I already use STC Pay, I do not need another payment solution')">Already using STC Pay</button>
+                  <button class="chip" onclick="objectionFill('Your fees are too high compared to what my current provider charges me')">Fees too high</button>
+                  <button class="chip" onclick="objectionFill('I am too busy right now, maybe come back next month')">Come back later</button>
+                  <button class="chip" onclick="objectionFill('I do not trust new fintech companies, I prefer to stick with my bank')">Trust concern</button>
+                </div>
+                <textarea id="objection-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="What did the merchant say? e.g. I already have a payment provider and I am happy with it..."></textarea>
+                <button class="btn-primary" style="width:100%" onclick="runObjection()" id="btn-objection"><i class="ti ti-bolt" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i><span data-en="Get winning response →" data-ar="احصل على رد مقنع →">Get winning response →</span></button>
+                <div id="objection-output" style="display:none;margin-top:12px"></div>
+              </div>
+              </div><!-- end agent-modes -->
+            </div><!-- end d-ai card -->
+            <div class="card">
+              <div class="ct"><i class="ti ti-robot"></i><span data-en="Quick AI chat" data-ar="محادثة ذكاء سريعة">Quick AI chat</span></div>
+              <div class="chat-wrap">
+                <div class="chat-msgs" id="d-msgs">
+                  <div class="msg-ai"><div class="msend"><span class="ai-badge">H</span><span data-en="HALA AI" data-ar="ذكاء HALA">HALA AI</span></div><div class="mbub" data-en="Hi Ahmed! Ask me anything about HALA products, onboarding, compliance, or merchant support." data-ar="مرحباً أحمد! اسألني عن منتجات HALA والتسجيل والامتثال ودعم التجار.">Hi Ahmed! Ask me anything about HALA products, onboarding, compliance, or merchant support.</div></div>
+                </div>
+                <div class="qchips">
+                  <button class="chip" onclick="dSend('What HALA products can I offer merchants?')"><span data-en="HALA products" data-ar="منتجات HALA">HALA products</span></button>
+                  <button class="chip" onclick="dSend('KYC docs for food merchant')"><span data-en="KYC food biz" data-ar="KYC طعام">KYC food biz</span></button>
+                  <button class="chip" onclick="dSend('SADAD transaction limit')"><span data-en="SADAD limits" data-ar="حدود سداد">SADAD limits</span></button>
+                </div>
+                <div class="chat-row">
+                  <textarea class="chat-input" id="d-inp" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();dSend(this.value)}" placeholder="Ask anything..."></textarea>
+                  <button class="chat-send" onclick="dSend(document.getElementById('d-inp').value)"><i class="ti ti-send" style="font-size:15px"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="ct"><i class="ti ti-checklist"></i><span data-en="Today's tasks" data-ar="مهام اليوم">Today's tasks</span></div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check done" onclick="toggleTask(this)">✓</div><div><div class="task-text" style="text-decoration:line-through;color:var(--muted)" data-en="Call Noor Fashion re: terminal" data-ar="الاتصال بنور للأزياء: الجهاز">Call Noor Fashion re: terminal</div><div class="task-meta"><span class="pdot ph"></span><span data-en="High · 9:00 AM" data-ar="عالية · 9:00 ص">High · 9:00 AM</span></div></div></div>
+                <div class="task-item"><div class="task-check" onclick="toggleTask(this)"></div><div><div class="task-text" data-en="Upload CR docs for Al-Noor Bakery" data-ar="رفع مستندات السجل التجاري لمخبز النور">Upload CR docs for Al-Noor Bakery</div><div class="task-meta"><span class="pdot ph"></span><span data-en="High · Due 2:00 PM" data-ar="عالية · قبل 2:00 م">High · Due 2:00 PM</span></div></div></div>
+                <div class="task-item"><div class="task-check" onclick="toggleTask(this)"></div><div><div class="task-text" data-en="Star Fitness compliance follow-up" data-ar="متابعة امتثال ستار للياقة">Star Fitness compliance follow-up</div><div class="task-meta"><span class="pdot pm"></span><span data-en="Medium · Due EOD" data-ar="متوسطة · نهاية اليوم">Medium · Due EOD</span></div></div></div>
+                <div class="task-item"><div class="task-check" onclick="toggleTask(this)"></div><div><div class="task-text" data-en="Visit Tech Gulf Trading" data-ar="زيارة تك خليج للتجارة">Visit Tech Gulf Trading</div><div class="task-meta"><span class="pdot pl"></span><span data-en="Low · 4:30 PM" data-ar="منخفضة · 4:30 م">Low · 4:30 PM</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE VIEW -->
+  <div class="mobile-wrap" id="view-mobile">
+    <div class="phone-shell">
+      <div class="phone-notch"><div class="notch-pill"></div></div>
+      <div class="phone-status"><span>9:41</span><span><i class="ti ti-wifi" style="font-size:11px"></i> <i class="ti ti-battery-2" style="font-size:11px"></i></span></div>
+      <div class="m-screen">
+
+        <!-- HOME -->
+        <div class="m-page" id="mp-home">
+          <div class="mhead" style="flex-shrink:0">
+            <div class="mh-top">
+              <div class="mh-logo"><div class="mh-lm">H</div>HALA Agent</div>
+              <i class="ti ti-bell" style="font-size:20px;color:rgba(255,255,255,0.8);cursor:pointer"></i>
+            </div>
+            <div class="mh-greet" data-en="Good morning, Ahmed 👋" data-ar="صباح الخير، أحمد 👋">Good morning, Ahmed 👋</div>
+            <div class="mh-sub" data-en="Tuesday, 19 May · Riyadh Region" data-ar="الثلاثاء، 19 مايو · منطقة الرياض">Tuesday, 19 May · Riyadh Region</div>
+            <div class="mh-stats">
+              <div class="mhstat"><div class="mhstat-v">12</div><div class="mhstat-l" data-en="Onboarded" data-ar="مُسجَّلون">Onboarded</div></div>
+              <div class="mhstat"><div class="mhstat-v">84K</div><div class="mhstat-l" data-en="SAR GMV" data-ar="ريال GMV">SAR GMV</div></div>
+              <div class="mhstat"><div class="mhstat-v">94%</div><div class="mhstat-l" data-en="Activation" data-ar="التفعيل">Activation</div></div>
+            </div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:12px 13px 0">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em" data-en="TODAY'S PRIORITY" data-ar="أولوية اليوم">TODAY'S PRIORITY</div>
+            <div style="background:var(--card);border-radius:13px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px">
+              <div style="background:#FFF8E1;padding:11px 14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #FFE082">
+                <i class="ti ti-alert-circle" style="font-size:17px;color:#E65100"></i>
+                <div style="flex:1"><div style="font-size:13px;font-weight:600;color:#7B3800" data-en="Al-Noor Bakery KYC pending" data-ar="مخبز النور: بانتظار التحقق من الهوية">Al-Noor Bakery KYC pending</div><div style="font-size:10px;color:#9C4200;margin-top:2px" data-en="Upload CR docs · Due 2:00 PM" data-ar="رفع مستندات السجل · قبل 2:00 م">Upload CR docs · Due 2:00 PM</div></div>
+                <button style="background:var(--g);color:white;border:none;border-radius:8px;padding:6px 11px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit" onclick="mGo('onboard')" data-en="Go →" data-ar="اذهب ←">Go →</button>
+              </div>
+              <div style="padding:11px 14px;display:flex;align-items:center;gap:9px">
+                <i class="ti ti-map-pin" style="font-size:17px;color:var(--g)"></i>
+                <div><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="Visit Tech Gulf Trading" data-ar="زيارة تك خليج للتجارة">Visit Tech Gulf Trading</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="4:30 PM · Al Olaya, Riyadh" data-ar="4:30 م · العليا، الرياض">4:30 PM · Al Olaya, Riyadh</div></div>
+              </div>
+            </div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em" data-en="QUICK ACTIONS" data-ar="إجراءات سريعة">QUICK ACTIONS</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('onboard')"><i class="ti ti-user-plus" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="New merchant" data-ar="تاجر جديد">New merchant</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="Start onboarding" data-ar="ابدأ التسجيل">Start onboarding</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('ai')"><i class="ti ti-robot" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="Ask anything" data-ar="اسأل أي شيء">Ask anything</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('pipe')"><i class="ti ti-users" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="My pipeline" data-ar="قائمة عملائي">My pipeline</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="4 active merchants" data-ar="4 تجار نشطون">4 active merchants</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer"><i class="ti ti-chart-bar" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="Performance" data-ar="الأداء">Performance</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="View stats" data-ar="عرض الإحصاءات">View stats</div></div>
+            </div>
+          </div>
+          </div>
+          <div class="m-bnav" style="flex-shrink:0">
+            <div class="mbn active" onclick="mGo('home')"><i class="ti ti-home"></i><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+            <div class="mbn" onclick="mGo('pipe')"><i class="ti ti-users"></i><span data-en="Pipeline" data-ar="عملاء">Pipeline</span><div class="mbn-badge"></div></div>
+            <div class="mbn" onclick="mGo('onboard')"><i class="ti ti-user-plus"></i><span data-en="Onboard" data-ar="تسجيل">Onboard</span></div>
+            <div class="mbn" onclick="mGo('ai')"><i class="ti ti-robot"></i><span data-en="AI" data-ar="ذكاء">AI</span></div>
+          </div>
+        </div>
+
+        <!-- ONBOARD -->
+        <div class="m-page hidden" id="mp-onboard">
+          <div style="background:var(--g);padding:15px 16px;color:white;display:flex;align-items:center;gap:10px;flex-shrink:0">
+            <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" onclick="mGo('home')"></i>
+            <div><div style="font-weight:600;font-size:15px" data-en="Onboard merchant" data-ar="تسجيل تاجر">Onboard merchant</div><div style="font-size:11px;opacity:0.72;margin-top:2px" data-en="Al-Noor Bakery · Step 2 of 4" data-ar="مخبز النور · الخطوة 2 من 4">Al-Noor Bakery · Step 2 of 4</div></div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:14px 14px 8px">
+            <div style="display:flex;gap:0;margin-bottom:15px;align-items:flex-start;position:relative">
+              <div style="position:absolute;top:12px;left:14px;right:14px;height:2px;background:var(--border)"></div>
+              <div style="position:absolute;top:12px;left:14px;width:calc(25% - 7px);height:2px;background:var(--g)"></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1"><div style="width:24px;height:24px;border-radius:50%;background:var(--g);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">✓</div><div style="font-size:10px;color:var(--g);margin-top:5px;font-weight:600" data-en="Biz info" data-ar="بيانات">Biz info</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1"><div style="width:24px;height:24px;border-radius:50%;background:white;border:2px solid var(--g);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">2</div><div style="font-size:10px;color:var(--g);margin-top:5px;font-weight:600" data-en="KYC" data-ar="الهوية">KYC</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1"><div style="width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">3</div><div style="font-size:10px;color:var(--muted);margin-top:5px" data-en="Product" data-ar="المنتج">Product</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1"><div style="width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">4</div><div style="font-size:10px;color:var(--muted);margin-top:5px" data-en="Activate" data-ar="تفعيل">Activate</div></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:500" data-en="Business name" data-ar="اسم المنشأة">Business name</div>
+            <input class="mfi" value="Al-Noor Bakery" readonly>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:500" data-en="CR number" data-ar="رقم السجل التجاري">CR number</div>
+            <input class="mfi" id="m-cr" placeholder="e.g. 1010123456">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:500" data-en="Business type" data-ar="نوع النشاط">Business type</div>
+            <select class="mfsel"><option data-en="Retail - Food & Beverage" data-ar="تجزئة - مواد غذائية">Retail - Food & Beverage</option></select>
+            <div class="mupload"><i class="ti ti-upload"></i><span data-en="Tap to upload national ID or passport" data-ar="انقر لرفع الهوية الوطنية أو جواز السفر">Tap to upload national ID or passport</span></div>
+            <button class="mbtn" onclick="mShowTip()" data-en="Verify & continue →" data-ar="تحقق وتابع →">Verify & continue →</button>
+            <div id="m-tip" style="display:none;margin-top:10px;padding:11px 13px;background:var(--gl);border-radius:10px;font-size:12px;color:var(--gd);line-height:1.55;border-left:3px solid var(--g)">
+              <strong><i class="ti ti-robot" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i><span data-en="AI check:" data-ar="فحص ذكاء اصطناعي:">AI check:</span></strong>
+              <span data-en=" CR looks valid. SFDA food license required for payment approval." data-ar=" السجل التجاري يبدو صحيحاً. يلزم ترخيص هيئة الغذاء والدواء للموافقة على الدفع."> CR looks valid. SFDA food license required for payment approval.</span>
+            </div>
+          </div>
+          <div class="m-bnav" style="flex-shrink:0">
+            <div class="mbn" onclick="mGo('home')"><i class="ti ti-home"></i><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+            <div class="mbn" onclick="mGo('pipe')"><i class="ti ti-users"></i><span data-en="Pipeline" data-ar="عملاء">Pipeline</span></div>
+            <div class="mbn active"><i class="ti ti-user-plus"></i><span data-en="Onboard" data-ar="تسجيل">Onboard</span></div>
+            <div class="mbn" onclick="mGo('ai')"><i class="ti ti-robot"></i><span data-en="AI" data-ar="ذكاء">AI</span></div>
+          </div>
+        </div>
+
+        <!-- PIPELINE -->
+        <div class="m-page hidden" id="mp-pipe">
+          <div style="background:var(--g);padding:15px 16px;color:white;display:flex;align-items:center;gap:10px;flex-shrink:0">
+            <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" onclick="mGo('home')"></i>
+            <div style="font-weight:600;font-size:15px" data-en="My pipeline" data-ar="قائمة عملائي">My pipeline</div>
+            <span style="margin-left:auto;background:rgba(255,255,255,0.2);font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px" data-en="4 merchants" data-ar="4 تجار">4 merchants</span>
+          </div>
+          <div style="flex:1;overflow-y:auto">
+          <div class="mpi" onclick="mGo('onboard')"><div class="mpa">AN</div><div><div class="mpn" data-en="Al-Noor Bakery" data-ar="مخبز النور">Al-Noor Bakery</div><div class="mpb" data-en="Retail · Mohammed Al-Sayed" data-ar="تجزئة · محمد السيد">Retail · Mohammed Al-Sayed</div></div><span class="mps s-kyc" data-en="KYC pending" data-ar="بانتظار التحقق">KYC pending</span></div>
+          <div class="mpi"><div class="mpa" style="background:var(--blue)">SF</div><div><div class="mpn" data-en="Star Fitness Center" data-ar="مركز ستار للياقة">Star Fitness Center</div><div class="mpb" data-en="Services · Fahad" data-ar="خدمات · فهد">Services · Fahad</div></div><span class="mps s-rev" data-en="In review" data-ar="قيد المراجعة">In review</span></div>
+          <div class="mpi"><div class="mpa" style="background:var(--purple)">TG</div><div><div class="mpn" data-en="Tech Gulf Trading" data-ar="تك خليج للتجارة">Tech Gulf Trading</div><div class="mpb" data-en="Electronics · Sara" data-ar="إلكترونيات · سارة">Electronics · Sara</div></div><span class="mps s-new" data-en="New lead" data-ar="عميل جديد">New lead</span></div>
+          <div class="mpi" style="border-bottom:none"><div class="mpa" style="background:#2E7D32">NF</div><div><div class="mpn" data-en="Noor Fashion" data-ar="نور للأزياء">Noor Fashion</div><div class="mpb" data-en="Retail · Noura" data-ar="تجزئة · نورة">Retail · Noura</div></div><span class="mps s-act" data-en="Activated" data-ar="مفعّل">Activated</span></div>
+          </div>
+          <div class="m-bnav" style="flex-shrink:0">
+            <div class="mbn" onclick="mGo('home')"><i class="ti ti-home"></i><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+            <div class="mbn active"><i class="ti ti-users"></i><span data-en="Pipeline" data-ar="عملاء">Pipeline</span></div>
+            <div class="mbn" onclick="mGo('onboard')"><i class="ti ti-user-plus"></i><span data-en="Onboard" data-ar="تسجيل">Onboard</span></div>
+            <div class="mbn" onclick="mGo('ai')"><i class="ti ti-robot"></i><span data-en="AI" data-ar="ذكاء">AI</span></div>
+          </div>
+        </div>
+
+        <!-- AI PAGE -->
+        <div class="m-page hidden" id="mp-ai">
+          <div style="background:var(--g);padding:15px 16px;color:white;display:flex;align-items:center;gap:10px;flex-shrink:0">
+            <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" onclick="mGo('home')"></i>
+            <div><div style="font-weight:600;font-size:15px" data-en="AI Agent" data-ar="وكيل الذكاء الاصطناعي">AI Agent</div><div style="font-size:11px;opacity:0.72;margin-top:2px" data-en="3 capabilities" data-ar="3 قدرات">3 capabilities</div></div>
+            <div style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#69F0AE"></div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:12px 13px 8px">
+            <!-- MOBILE AGENT MODES -->
+            <div id="m-agent-modes">
+              <div style="display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap">
+                <button class="mode-tab active" id="m-tab-pitch" onclick="setModeM('pitch')" style="font-size:11px;padding:6px 10px"><i class="ti ti-speakerphone" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Pitch</button>
+                <button class="mode-tab" id="m-tab-profiler" onclick="setModeM('profiler')" style="font-size:11px;padding:6px 10px"><i class="ti ti-user-search" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Profiler</button>
+                <button class="mode-tab" id="m-tab-compliance" onclick="setModeM('compliance')" style="font-size:11px;padding:6px 10px"><i class="ti ti-shield-check" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Compliance</button>
+                <button class="mode-tab" id="m-tab-objection" onclick="setModeM('objection')" style="font-size:11px;padding:6px 10px"><i class="ti ti-message-2" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Objection</button>
+              </div>
+              <!-- MOBILE PITCH: shown first -->
+              <div id="m-pitch">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5">Describe the merchant before your visit. AI builds a personalised pitch tailored to their business. Read it before you walk in.</div>
+                <div class="mqc" style="margin-bottom:9px">
+                  <button class="chip" onclick="pitchFill('Restaurant in Riyadh, uses cash only, 20 staff, no POS yet')">Cash-only restaurant</button>
+                  <button class="chip" onclick="pitchFill('Supermarket in Jeddah, old POS, unhappy with slow settlement')">Unhappy with POS</button>
+                  <button class="chip" onclick="pitchFill('New ladies salon in Riyadh, just opened, wants card payments')">New salon</button>
+                </div>
+                <textarea id="m-pitch-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="Business type, size, current setup, known pain points..."></textarea>
+                <button class="mbtn" id="m-btn-pitch" onclick="mRunPitch()" style="font-size:13px"><i class="ti ti-speakerphone" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Build my pitch →</button>
+                <div id="m-pitch-output" style="display:none;margin-top:10px"></div>
+              </div>
+              <!-- MOBILE PROFILER -->
+              <div id="m-profiler" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5">Describe a business and AI builds the full HALA onboarding profile instantly.</div>
+                <div class="mqc" style="margin-bottom:9px">
+                  <button class="chip" onclick="profilerFill('Small coffee shop in Al Olaya Riyadh, owner Khalid, 8 staff, est 2021')">Coffee shop</button>
+                  <button class="chip" onclick="profilerFill('Ladies fashion boutique Jeddah, sells abayas, owner Mona, 3 staff')">Fashion boutique</button>
+                  <button class="chip" onclick="profilerFill('Auto spare parts wholesale Dammam, owner Abdullah, 15 staff, est 2018')">Auto parts</button>
+                </div>
+                <textarea id="m-profiler-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="e.g. Small grocery in Riyadh, owner Faisal, 5 staff..."></textarea>
+                <button class="mbtn" id="m-btn-profiler" onclick="mRunProfiler()" style="font-size:13px"><i class="ti ti-sparkles" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Build merchant profile →</button>
+                <div id="m-profiler-output" style="display:none;margin-top:10px"></div>
+              </div>
+              <!-- MOBILE COMPLIANCE -->
+              <div id="m-compliance" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5">Paste merchant details and AI flags compliance gaps before submission.</div>
+                <div class="mqc" style="margin-bottom:9px">
+                  <button class="chip" onclick="complianceFill('Business: Al-Noor Bakery, Type: Food, CR: provided, Owner ID: provided, Bank statement: provided, SFDA license: not provided')">Missing SFDA</button>
+                  <button class="chip" onclick="complianceFill('Business: Tech Gulf, Type: Electronics, CR: provided, Owner ID: provided, Bank: 1 month only, VAT: not provided')">Incomplete docs</button>
+                  <button class="chip" onclick="complianceFill('Business: Star Fitness, Type: Gym, all docs complete including CR, ID, 3-month bank statement, municipality license')">Clean application</button>
+                </div>
+                <textarea id="m-compliance-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="Business name, type, documents submitted..."></textarea>
+                <button class="mbtn" id="m-btn-compliance" onclick="mRunCompliance()" style="font-size:13px"><i class="ti ti-shield-search" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Scan for compliance gaps →</button>
+                <div id="m-compliance-output" style="display:none;margin-top:10px"></div>
+              </div>
+              <!-- MOBILE OBJECTION -->
+              <div id="m-objection" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5">What did the merchant say? Get an instant coached response.</div>
+                <div class="mqc" style="margin-bottom:9px">
+                  <button class="chip" onclick="objectionFill('I already use STC Pay, I do not need another solution')">Already using STC Pay</button>
+                  <button class="chip" onclick="objectionFill('Your fees are too high compared to competitors')">Fees too high</button>
+                  <button class="chip" onclick="objectionFill('I am too busy, come back next month')">Come back later</button>
+                  <button class="chip" onclick="objectionFill('I do not trust new fintech companies with my money')">Trust concern</button>
+                </div>
+                <textarea id="m-objection-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="What did the merchant say?..."></textarea>
+                <button class="mbtn" id="m-btn-objection" onclick="mRunObjection()" style="font-size:13px"><i class="ti ti-bolt" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Get winning response →</button>
+                <div id="m-objection-output" style="display:none;margin-top:10px"></div>
+              </div>
+            </div>
+          </div>
+          <div class="m-bnav" style="flex-shrink:0">
+            <div class="mbn" onclick="mGo('home')"><i class="ti ti-home"></i><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+            <div class="mbn" onclick="mGo('pipe')"><i class="ti ti-users"></i><span data-en="Pipeline" data-ar="عملاء">Pipeline</span></div>
+            <div class="mbn" onclick="mGo('onboard')"><i class="ti ti-user-plus"></i><span data-en="Onboard" data-ar="تسجيل">Onboard</span></div>
+            <div class="mbn active"><i class="ti ti-robot"></i><span data-en="AI" data-ar="ذكاء">AI</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- end main-wrap -->
+
+
+
+<script>
+// ── TRANSLATIONS ──
+const T={
+  en:{
+    'lb-title':'HALA Agent Experience: Prototype',
+    'snb-next':'Next →','snb-back':'← Back',
+    'demo-play-start':'▶ Start demo','demo-play-next':'▶ Next step','demo-play-done':'✓ Demo complete',
+  },
+  ar:{
+    'lb-title':'تجربة وكيل HALA: نموذج أولي',
+    'snb-next':'التالي ←','snb-back':'→ رجوع',
+    'demo-play-start':'▶ ابدأ العرض','demo-play-next':'▶ الخطوة التالية','demo-play-done':'✓ انتهى العرض',
+  }
+};
+let lang='en';
+function setLang(l){
+  lang=l;
+  document.body.setAttribute('data-lang',l);
+  document.documentElement.setAttribute('dir',l==='ar'?'rtl':'ltr');
+  document.getElementById('btn-en').className='lbtn'+(l==='en'?' on':'');
+  document.getElementById('btn-ar').className='lbtn'+(l==='ar'?' on':'');
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const v=el.getAttribute('data-'+l);
+    if(v)el.textContent=v;
+  });
+  document.querySelectorAll('[data-en-placeholder]').forEach(el=>{
+    el.placeholder=el.getAttribute('data-'+l+'-placeholder')||el.getAttribute('data-en-placeholder');
+  });
+  refreshSceneText();
+}
+
+// ── STORY ──
+const scenes=[
+  {tag:{en:'The problem',ar:'المشكلة'},title:{en:'HALA agents are losing merchants in the field',ar:'وكلاء HALA يخسرون التجار في الميدان'},desc:{en:'A field agent visits a merchant. They collect info on paper, WhatsApp details to the office, wait for KYC approval, follow up days later. By then the merchant has gone cold, or already signed with a competitor.',ar:'يزور الوكيل الميداني التاجر، يجمع المعلومات على ورق، يرسل التفاصيل عبر واتساب، ينتظر موافقة التحقق من الهوية، ثم يتابع بعد أيام. في تلك الأثناء، فقد التاجر اهتمامه أو تعاقد مع منافس.'},badge:{type:'pain',en:'Avg onboarding time: 3–5 days. Merchant drop-off: ~40%',ar:'متوسط وقت التسجيل: 3–5 أيام. معدل التراجع: ~40%'}},
+  {tag:{en:'The broken workflow',ar:'سير العمل المكسور'},title:{en:'Agents juggle 4 tools to complete 1 task',ar:'الوكلاء يستخدمون 4 أدوات لإنجاز مهمة واحدة'},desc:{en:'WhatsApp for docs. A browser portal for KYC. Excel for pipeline. Phone calls for compliance questions. Every hand-off is a delay. Every delay is a lost deal.',ar:'واتساب للمستندات. بوابة متصفح للتحقق. إكسل لقائمة العملاء. مكالمات هاتفية لأسئلة الامتثال. كل تحويل تأخير، وكل تأخير صفقة ضائعة.'},badge:{type:'pain',en:'Avg agent uses 4 separate tools per merchant onboarding',ar:'يستخدم الوكيل 4 أدوات منفصلة لتسجيل كل تاجر'}},
+  {tag:{en:'The fix',ar:'الحل'},title:{en:'One unified agent app, everything in one place',ar:'تطبيق وكيل موحد، كل شيء في مكان واحد'},desc:{en:'This prototype shows what the unified HALA Agent experience looks like. Real-time KYC guided by AI. Pipeline visible at a glance. Compliance checks inside the flow, not after it.',ar:'يوضح هذا النموذج كيف تبدو تجربة وكيل HALA الموحدة. التحقق من الهوية في الوقت الفعلي بتوجيه من الذكاء الاصطناعي. قائمة العملاء بنظرة واحدة. فحوصات الامتثال داخل التدفق لا بعده.'},badge:{type:'fix',en:'Target: onboarding completed in under 20 minutes, in the field',ar:'الهدف: إتمام التسجيل في أقل من 20 دقيقة في الميدان'}},
+  {tag:{en:'The result',ar:'النتيجة'},title:{en:'Faster activation. Higher GMV. Better agent retention.',ar:'تفعيل أسرع. حجم معاملات أعلى. احتفاظ أفضل بالوكلاء.'},desc:{en:'When agents have a tool built for their workflow, conversion goes up, ramp time for new agents goes down, and HALA captures merchants before competitors do. This is the 0-to-1 product this role owns.',ar:'عندما يمتلك الوكلاء أداة مبنية لسير عملهم، ترتفع نسبة التحويل، يقل وقت تأهيل الوكلاء الجدد، وتستحوذ HALA على التجار قبل المنافسين. هذا هو المنتج الذي يمتلكه هذا الدور من الصفر.'},badge:{type:'fix',en:'Projected: 40% drop-off reduction, 60% faster onboarding',ar:'المتوقع: تقليل التراجع بنسبة 40%، تسريع التسجيل بنسبة 60%'}}
+];
+let curScene=0;
+function goScene(i){
+  curScene=i;
+  refreshSceneText();
+  document.querySelectorAll('.sn-step').forEach((el,j)=>{
+    el.className='sn-step '+(j<i?'done':j===i?'active':'');
+  });
+  document.getElementById('snb-back').style.display=i>0?'inline-block':'none';
+  document.getElementById('snb-next').style.display=i<scenes.length-1?'inline-block':'none';
+}
+function refreshSceneText(){
+  const s=scenes[curScene];
+  document.getElementById('sc-tag').textContent=s.tag[lang];
+  document.getElementById('sc-title').textContent=s.title[lang];
+  document.getElementById('sc-desc').textContent=s.desc[lang];
+  document.getElementById('sc-badge').innerHTML=`<span class="sc-badge ${s.badge.type}"><i class="ti ti-${s.badge.type==='pain'?'alert-circle':'trending-up'}" style="font-size:13px"></i> ${s.badge[lang]}</span>`;
+}
+function nextScene(){if(curScene<scenes.length-1)goScene(curScene+1)}
+function prevScene(){if(curScene>0)goScene(curScene-1)}
+
+// ── VIEW TOGGLE ──
+function switchView(v){
+  document.getElementById('view-desktop').style.display=v==='desktop'?'block':'none';
+  document.getElementById('view-mobile').style.display=v==='mobile'?'flex':'none';
+  document.getElementById('vb-desk').className='vbtn'+(v==='desktop'?' on':'');
+  document.getElementById('vb-mob').className='vbtn'+(v==='mobile'?' on':'');
+}
+
+// ── DESKTOP LOGIC ──
+const dTitles={dash:{en:'Good morning, Ahmed 👋',ar:'صباح الخير، أحمد 👋'},onboard:{en:'Onboard new merchant',ar:'تسجيل تاجر جديد'},pipe:{en:'My pipeline',ar:'قائمة عملائي'},ai:{en:'AI Assistant',ar:'المساعد الذكي'}};
+const dSubs={dash:{en:'Tuesday 19 May · Riyadh Region',ar:'الثلاثاء 19 مايو · منطقة الرياض'},onboard:{en:'Al-Noor Bakery · Step 2 of 4',ar:'مخبز النور · الخطوة 2 من 4'},pipe:{en:'4 active merchants',ar:'4 تجار نشطون'},ai:{en:'Powered by HALA intelligence',ar:'مدعوم بذكاء HALA'}};
+function dShow(s){
+  ['dash','onboard','pipe','ai'].forEach(x=>{const el=document.getElementById('d-'+x);if(el)el.style.display=x===s?'block':'none'});
+  document.getElementById('d-title').textContent=dTitles[s][lang];
+  document.getElementById('d-sub').textContent=dSubs[s][lang];
+  ['ni-dash','ni-onboard','ni-pipe','ni-ai'].forEach((id,i)=>{
+    const el=document.getElementById(id);if(el)el.classList.toggle('active',['dash','onboard','pipe','ai'][i]===s);
+  });
+}
+function dShowHint(){document.getElementById('d-hint').style.display='block'}
+function toggleTask(el){const d=el.classList.contains('done');el.classList.toggle('done');el.textContent=d?'':'✓';const t=el.nextElementSibling.querySelector('.task-text');t.style.textDecoration=d?'none':'line-through';t.style.color=d?'':'var(--muted)'}
+
+// ── AI RESPONSES ──
+const aiR={
+  en:{'KYC docs for food merchant':'For food & beverage merchants, HALA requires: (1) Valid CR number, (2) SFDA food trading license, (3) Owner national ID, (4) Business bank statement (3 months). Processing takes 2–3 business days.','How to reset a POS terminal?':'Hold power for 10 seconds until screen flashes. Enter admin PIN (default: 1234 for new devices). Select Settings → Factory Reset. Merchant re-logs with HALA credentials.','SADAD transaction limit':'SADAD via HALA is capped at SAR 50,000 per transaction. Daily limit: SAR 200,000 for verified merchants, SAR 50,000 for merchants in review.'},
+  ar:{'KYC docs for food merchant':'لتجار الأغذية والمشروبات، تطلب HALA: (1) رقم سجل تجاري ساري، (2) ترخيص تجارة غذاء من هيئة الغذاء والدواء، (3) هوية وطنية للمالك، (4) كشف حساب بنكي (3 أشهر). المعالجة تستغرق 2–3 أيام عمل.','How to reset a POS terminal?':'اضغط على زر الطاقة 10 ثوانٍ حتى تومض الشاشة. أدخل رقم PIN المسؤول (الافتراضي: 1234 للأجهزة الجديدة). اختر الإعدادات ← إعادة الضبط. يعيد التاجر تسجيل الدخول ببيانات HALA.','SADAD transaction limit':'مدفوعات سداد عبر HALA محدودة بـ 50,000 ريال للمعاملة الواحدة. الحد اليومي: 200,000 ريال للتجار الموثقين، 50,000 ريال للتجار قيد المراجعة.'}
+};
+function getAIReply(text){
+  const r=aiR[lang];
+  if(r[text])return r[text];
+  const t=text.toLowerCase();
+  if(lang==='ar'){
+    if(t.includes('منتج')||t.includes('hala')||t.includes('خدمة'))return 'منتجات HALA للتجار تشمل: نقاط البيع (POS) للدفع الفيزيائي، HALA Pay للمحفظة الرقمية، بوابة سداد، روابط الدفع للمبيعات الإلكترونية، ولوحة تحكم للتحليلات. كل هذا في منصة واحدة.';
+    if(t.includes('kyc')||t.includes('هوية')||t.includes('مستند'))return 'المستندات المطلوبة: سجل تجاري، هوية وطنية للمالك، وكشف حساب بنكي لمدة 3 أشهر. للقطاعات المنظمة كالأغذية، تلزم تصاريح إضافية.';
+    if(t.includes('pos')||t.includes('جهاز'))return 'لإعادة ضبط جهاز HALA: اضغط الطاقة 10 ثوانٍ، أدخل 1234، اختر إعادة الضبط.';
+    if(t.includes('سداد')||t.includes('حد'))return 'حد معاملات سداد: 50,000 ريال للمعاملة. الحد اليومي للتجار الموثقين: 200,000 ريال.';
+    return 'أستطيع المساعدة في منتجات HALA والتسجيل والامتثال وحدود الدفع. استخدم تبويب "وكيل الذكاء الاصطناعي" للمساعدة المتقدمة.';
+  }
+  if(t.includes('product')||t.includes('offer')||t.includes('hala'))return 'HALA products for merchants: POS terminals for physical payments, HALA Pay digital wallet, SADAD integration, payment links for online sales, and a business analytics dashboard. All in one platform, built for SMEs.';
+  if(t.includes('kyc')||t.includes('document'))return 'Required docs: CR number, national ID, and 3-month bank statement. For food/healthcare, additional licenses required.';
+  if(t.includes('pos')||t.includes('terminal'))return 'Hold power 10s → admin PIN (1234) → Settings → Factory Reset. Contact support if issue persists.';
+  if(t.includes('sadad')||t.includes('limit'))return 'SADAD cap: SAR 50K/transaction. Daily limit for verified merchants: SAR 200K.';
+  return 'I can help with HALA products, onboarding, compliance, and POS support. For deeper analysis, click "AI Assistant" in the sidebar to use the full AI agent.';
+}
+function appendMsg(containerId,text,isUser){
+  const c=document.getElementById(containerId);
+  if(isUser){c.innerHTML+=`<div class="msg-user"><div class="mbub">${text}</div></div>`}
+  else{c.innerHTML+=`<div class="msg-ai"><div class="msend"><span class="ai-badge">H</span><span>${lang==='ar'?'ذكاء HALA':'HALA AI'}</span></div><div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>`;}
+  c.scrollTop=c.scrollHeight;
+  if(!isUser)setTimeout(()=>{const ts=c.querySelectorAll('.typing');if(ts.length){ts[ts.length-1].outerHTML=`<div class="mbub">${getAIReply(text)}</div>`;}c.scrollTop=c.scrollHeight;},1100);
+}
+function dSend(t){const inp=document.getElementById('d-inp');t=t||inp.value;t=t.trim();if(!t)return;appendMsg('d-msgs',t,true);appendMsg('d-msgs',t,false);if(inp)inp.value='';}
+function dSendFull(t){const inp=document.getElementById('d-inp-full');t=t||inp.value;t=t.trim();if(!t)return;appendMsg('d-msgs-full',t,true);appendMsg('d-msgs-full',t,false);if(inp)inp.value='';}
+
+// ── AI AGENT: 4 MODES ──
+const GROQ_API_KEY = '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';
+
+function setMode(m){
+  ['profiler','compliance','objection','pitch'].forEach(x=>{
+    const el=document.getElementById('mode-'+x);
+    if(el)el.style.display=x===m?'block':'none';
+    const tab=document.getElementById('tab-'+x);
+    if(tab)tab.className='mode-tab'+(x===m?' active':'');
+  });
+}
+
+function setModeM(m){
+  ['m-profiler','m-compliance','m-objection','m-pitch'].forEach(x=>{
+    const el=document.getElementById(x);
+    if(el)el.style.display=x==='m-'+m?'block':'none';
+  });
+  ['m-tab-profiler','m-tab-compliance','m-tab-objection','m-tab-pitch'].forEach(x=>{
+    const el=document.getElementById(x);
+    if(el)el.className='mode-tab'+(x==='m-tab-'+m?' active':'');
+  });
+}
+
+
+
+
+async function callGroq(systemPrompt, userMsg, outputId, btnId){
+  const out = document.getElementById(outputId);
+  const btn = document.getElementById(btnId);
+  if(!out||!btn)return;
+  out.style.display='block';
+  out.innerHTML='<div class="ai-loading"><div class="spin"></div><span>'+(lang==='ar'?'HALA AI يفكر...':'HALA AI is thinking...')+'</span></div>';
+  btn.disabled=true; btn.style.opacity='0.6';
+  const fullSystem = lang==='ar'
+    ? systemPrompt + '\n\nمهم جداً: أجب باللغة العربية الفصحى البسيطة فقط. جميع المحتوى يجب أن يكون بالعربية.'
+    : systemPrompt;
+  try {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_API_KEY},
+      body:JSON.stringify({
+        model:'llama-3.3-70b-versatile',
+        max_tokens:900,
+        messages:[{role:'system',content:fullSystem},{role:'user',content:userMsg}]
+      })
+    });
+    const data = await resp.json();
+    if(data.error){
+      out.innerHTML=`<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Groq error: ${data.error.message}. Check your API key.</div>`;
+    } else {
+      const text = data.choices?.[0]?.message?.content || 'No response received.';
+      out.innerHTML=renderResult(text);
+    }
+  } catch(e){
+    out.innerHTML='<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Connection failed. Check your internet connection.</div>';
+  }
+  btn.disabled=false; btn.style.opacity='1';
+}
+
+function renderResult(text){
+  const isAr = lang === 'ar';
+  const html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  const dir = isAr ? 'rtl' : 'ltr';
+  const label = isAr ? 'رد HALA الذكي' : 'HALA AI response';
+  return `<div class="ai-result"><div class="ai-result-label"><i class="ti ti-sparkles" style="font-size:13px"></i>${label}</div><div style="line-height:1.7;font-size:12px;direction:${dir};text-align:${isAr?'right':'left'}">${html}</div></div>`;
+}
+
+// fill helpers
+function pitchFill(t){['pitch-input','m-pitch-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
+function profilerFill(t){['profiler-input','m-profiler-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
+function complianceFill(t){['compliance-input','m-compliance-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
+function objectionFill(t){['objection-input','m-objection-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
+
+const SYS_PITCH=`You are HALA's sales coaching AI for field agents in Saudi Arabia. HALA is licensed by SAMA and offers POS terminals, HALA Pay digital wallet, SADAD bill payments, payment links for online sales, and a real-time business analytics dashboard. All in one platform built for SME merchants.
+Given a merchant the agent is about to visit, output a personalised pitch in this format:
+MERCHANT SNAPSHOT
+Business: [type/description]
+Their likely pain: [1-2 specific pain points based on their situation]
+HALA fit score: [HIGH/MEDIUM] ([one sentence why])
+OPENING LINE:
+[Exact first sentence the agent should say. Keep it warm and specific to this merchant, not generic]
+YOUR PITCH (60 seconds):
+[3-4 sentences tailored to this merchant. Name specific HALA features that solve their exact problems. Include one concrete number or proof point.]
+BEST HALA PRODUCTS FOR THEM:
+- [Product]: [why it fits specifically]
+- [Product]: [why it fits]
+CLOSING ASK:
+[The specific ask: demo, signup, or follow-up visit]
+Keep it field-ready. The agent reads this on their phone before walking into the shop.`;
+
+const SYS_PROFILER=`You are HALA's smart onboarding AI assistant. HALA is a leading fintech in Saudi Arabia providing POS terminals, HALA Pay digital wallet, SADAD payments, payment links, and business analytics for SME merchants.
+Given a brief business description, output a structured onboarding profile:
+MERCHANT PROFILE
+Business Name: [suggest if not given]
+Business Type: [category]
+Industry: [specific]
+Location: [city/region]
+Owner Name: [if provided]
+Estimated Staff: [number]
+HALA Products Recommended:
+- [product + one-line reason]
+- [product + one-line reason]
+- [product if relevant]
+KYC Documents Required:
+- [list all required docs]
+Compliance Notes: [Saudi regulatory flags for this business type]
+Estimated Onboarding Time: [days]
+Agent Tips: [1-2 practical field tips]
+Keep it concise. Focus on what a field agent needs.`;
+
+const SYS_COMPLIANCE=`You are HALA's compliance verification AI. HALA is licensed by SAMA (Saudi Central Bank).
+Given merchant application details, output:
+COMPLIANCE SCAN RESULT
+Overall Status: [APPROVED / CONDITIONAL / REJECTED]
+Document Check:
+✓ [complete item]
+⚠ [needs attention: state what action is required]
+✗ [missing: this will cause rejection]
+Regulatory Flags: [Saudi-specific requirements: SFDA, ZATCA VAT, municipality, etc.]
+Action Required Before Submission:
+1. [action]
+2. [action]
+Risk Level: [LOW/MEDIUM/HIGH] ([one sentence reason])
+Keep it actionable.`;
+
+const SYS_OBJECTION=`You are HALA's sales coaching AI for field agents in Saudi Arabia. HALA offers POS terminals, HALA Pay wallet, SADAD integration, payment links, and analytics for SME merchants.
+Given a merchant objection, output:
+OBJECTION: [restate briefly]
+WHY THIS HAPPENS: [one sentence on the real underlying concern]
+WINNING RESPONSE:
+[Exact words for the agent. Natural Saudi business tone, 3 to 4 sentences, with specific HALA advantages]
+FOLLOW-UP IF THEY STILL RESIST:
+[One more angle]
+WHAT NOT TO SAY: [common agent mistake]
+Keep it field-ready. The agent is in front of the merchant right now.`;
+
+function runPitch(){const v=document.getElementById('pitch-input').value.trim();if(!v)return;callGroq(SYS_PITCH,v,'pitch-output','btn-pitch');}
+function runProfiler(){
+  const v=document.getElementById('profiler-input').value.trim();
+  if(!v)return;
+  callGroq(SYS_PROFILER,v,'profiler-output','btn-profiler');
+}
+function runComplianceCheck(){
+  const v=document.getElementById('compliance-input').value.trim();
+  if(!v)return;
+  callGroq(SYS_COMPLIANCE,v,'compliance-output','btn-compliance');
+}
+function runObjection(){
+  const v=document.getElementById('objection-input').value.trim();
+  if(!v)return;
+  callGroq(SYS_OBJECTION,v,'objection-output','btn-objection');
+}
+function mRunPitch(){const v=document.getElementById('m-pitch-input').value.trim();if(!v)return;callGroq(SYS_PITCH,v,'m-pitch-output','m-btn-pitch');}
+function mRunProfiler(){
+  const v=document.getElementById('m-profiler-input').value.trim();
+  if(!v)return;
+  callGroq(SYS_PROFILER,v,'m-profiler-output','m-btn-profiler');
+}
+function mRunCompliance(){
+  const v=document.getElementById('m-compliance-input').value.trim();
+  if(!v)return;
+  callGroq(SYS_COMPLIANCE,v,'m-compliance-output','m-btn-compliance');
+}
+function mRunObjection(){
+  const v=document.getElementById('m-objection-input').value.trim();
+  if(!v)return;
+  callGroq(SYS_OBJECTION,v,'m-objection-output','m-btn-objection');
+}
+
+// ── MOBILE LOGIC ──
+function mGo(p){
+  ['home','onboard','pipe','ai'].forEach(x=>{
+    const el=document.getElementById('mp-'+x);
+    if(el)el.classList.toggle('hidden',x!==p);
+  });
+  const navMap={home:0,pipe:1,onboard:2,ai:3};
+  document.querySelectorAll('.m-bnav').forEach(nav=>{
+    nav.querySelectorAll('.mbn').forEach((btn,i)=>{
+      btn.classList.toggle('active', i===navMap[p]);
+    });
+  });
+}
+function mShowTip(){document.getElementById('m-tip').style.display='block';}
+function mSend(t){const inp=document.getElementById('m-inp');t=t||inp.value;t=t.trim();if(!t)return;appendMsg('m-msgs',t,true);appendMsg('m-msgs',t,false);if(inp)inp.value='';}
+
+// init: show pitch mode by default
+setMode('pitch');
+setModeM('pitch');
+
+</script>
+</body>
+</html>
