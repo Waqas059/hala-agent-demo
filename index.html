@@ -790,7 +790,7 @@ function dSend(t){const inp=document.getElementById('d-inp');t=t||inp.value;t=t.
 function dSendFull(t){const inp=document.getElementById('d-inp-full');t=t||inp.value;t=t.trim();if(!t)return;appendMsg('d-msgs-full',t,true);appendMsg('d-msgs-full',t,false);if(inp)inp.value='';}
 
 // ── AI AGENT: 4 MODES ──
-const GROQ_API_KEY = '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';
+const GROQ_API_KEY = 'PASTE_YOUR_GROQ_KEY_HERE';
 
 function setMode(m){
   ['profiler','compliance','objection','pitch'].forEach(x=>{
@@ -815,6 +815,9 @@ function setModeM(m){
 
 
 
+// proxy URL — Groq key lives securely on Vercel, never in this file
+const PROXY_URL = 'https://hala-proxy.vercel.app/api/chat';
+
 async function callGroq(systemPrompt, userMsg, outputId, btnId){
   const out = document.getElementById(outputId);
   const btn = document.getElementById(btnId);
@@ -826,24 +829,19 @@ async function callGroq(systemPrompt, userMsg, outputId, btnId){
     ? systemPrompt + '\n\nمهم جداً: أجب باللغة العربية الفصحى البسيطة فقط. جميع المحتوى يجب أن يكون بالعربية.'
     : systemPrompt;
   try {
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_API_KEY},
-      body:JSON.stringify({
-        model:'llama-3.3-70b-versatile',
-        max_tokens:900,
-        messages:[{role:'system',content:fullSystem},{role:'user',content:userMsg}]
-      })
+    const resp = await fetch(PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ systemPrompt: fullSystem, userMsg })
     });
     const data = await resp.json();
     if(data.error){
-      out.innerHTML=`<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Groq error: ${data.error.message}. Check your API key.</div>`;
+      out.innerHTML=`<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Error: ${data.error}</div>`;
     } else {
-      const text = data.choices?.[0]?.message?.content || 'No response received.';
-      out.innerHTML=renderResult(text);
+      out.innerHTML=renderResult(data.text);
     }
   } catch(e){
-    out.innerHTML='<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Connection failed. Check your internet connection.</div>';
+    out.innerHTML='<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Connection failed. Check your internet.</div>';
   }
   btn.disabled=false; btn.style.opacity='1';
 }
