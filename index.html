@@ -6,7 +6,7 @@
 <title>HALA Agent Experience: Built by a PM who ships</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.x/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <!-- counter.dev analytics, tracks visits silently -->
 <script src="https://cdn.counter.dev/script.js" data-id="7bd7f3e0-56ee-446b-8d0e-6ef619923924" data-utcoffset="5"></script>
 <style>
@@ -664,8 +664,9 @@ nav.snav{flex:1;padding:8px}
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('ai')"><i class="ti ti-robot" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="Ask anything" data-ar="اسأل أي شيء">Ask anything</div></div>
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('pipe')"><i class="ti ti-users" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="My pipeline" data-ar="قائمة عملائي">My pipeline</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="4 active merchants" data-ar="4 تجار نشطون">4 active merchants</div></div>
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('perf')"><i class="ti ti-chart-bar" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="Performance" data-ar="الأداء">Performance</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="View stats" data-ar="عرض الإحصاءات">View stats</div></div>
+            </div><!-- end grid -->
             <div style="height:12px"></div>
-          </div>
+          </div><!-- end scroll area -->
           <div class="m-bnav" style="flex-shrink:0">
             <div class="mbn active" onclick="mGo('home')"><i class="ti ti-home"></i><span data-en="Home" data-ar="الرئيسية">Home</span></div>
             <div class="mbn" onclick="mGo('pipe')"><i class="ti ti-users"></i><span data-en="Pipeline" data-ar="عملاء">Pipeline</span><div class="mbn-badge"></div></div>
@@ -845,6 +846,8 @@ nav.snav{flex:1;padding:8px}
                 <button class="mbtn" id="m-btn-rewards" onclick="mRunRewards()" style="font-size:13px"><i class="ti ti-star" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Calculate rewards →</button>
                 <div id="m-rewards-output" style="display:none;margin-top:10px"></div>
               </div>
+              <!-- MOBILE OBJECTION -->
+              <div id="m-objection" style="display:none">
                 <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5">What did the merchant say? Get an instant coached response.</div>
                 <div class="mqc" style="margin-bottom:9px">
                   <button class="chip" onclick="objectionFill('I already use STC Pay, I do not need another solution')">Already using STC Pay</button>
@@ -1113,7 +1116,7 @@ async function callGroq(systemPrompt, userMsg, outputId, btnId){
       out.innerHTML=renderResult(data.text, remaining);
     }
   } catch(e){
-    out.innerHTML='<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Connection failed. Check your internet.</div>';
+    out.innerHTML='<div class="flag-item flag-bad"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i>Could not reach AI. Please try again in a moment.</div>';
   }
   btn.disabled=false; btn.style.opacity='1';
 }
@@ -1348,9 +1351,12 @@ function mGo(p){
 function mShowTip(){document.getElementById('m-tip').style.display='block';}
 function mSend(t){const inp=document.getElementById('m-inp');t=t||inp.value;t=t.trim();if(!t)return;appendMsg('m-msgs',t,true);appendMsg('m-msgs',t,false);if(inp)inp.value='';}
 
-// init: show pitch mode by default
-setMode('pitch');
-setModeM('pitch');
+// init: show pitch mode by default — wait for DOM
+document.addEventListener('DOMContentLoaded', function(){
+  setMode('pitch');
+  setModeM('pitch');
+  dShow('dash');
+});
 
 </script>
 <!-- ALWAYS VISIBLE FEEDBACK BUTTON -->
