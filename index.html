@@ -168,6 +168,16 @@ nav.snav{flex:1;padding:8px}
 .coach-bubble{background:var(--gl);border-left:3px solid var(--g);border-radius:0 8px 8px 0;padding:10px 13px;font-size:12px;color:var(--gd);line-height:1.6;margin-bottom:8px}
 .ai-loading{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);padding:12px 0}
 .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--g);border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+.shake{animation:shake 0.4s ease;border-color:var(--red) !important}
+.usage-counter{font-size:10px;color:var(--muted);text-align:right;margin-bottom:8px}
+.usage-counter.warn{color:#E65100;font-weight:500}
+.usage-counter.danger{color:var(--red);font-weight:600}
+@keyframes checkpop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+.task-check.pop{animation:checkpop 0.25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(27,138,90,0.4)}50%{box-shadow:0 0 0 6px rgba(27,138,90,0)}}
+.section-fadein{animation:fadein 0.2s ease}
 @keyframes spin{to{transform:rotate(360deg)}}
 .chat-row{display:flex;gap:8px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
 .chat-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:12px;font-family:inherit;background:var(--bg);color:var(--text);resize:none}
@@ -292,7 +302,7 @@ nav.snav{flex:1;padding:8px}
         </div>
         <div class="scene-nav-btns">
           <button class="snb" id="snb-back" onclick="prevScene()" style="display:none" data-en="← Back" data-ar="→ رجوع">← Back</button>
-          <button class="snb primary" id="snb-next" onclick="nextScene()" data-en="Next →" data-ar="التالي ←">Next →</button>
+          <button class="snb primary" id="snb-next" onclick="nextScene()" data-en="Next →" data-ar="التالي ←" style="animation:pulse 2s ease-in-out infinite">Next →</button>
         </div>
       </div>
     </div>
@@ -345,6 +355,12 @@ nav.snav{flex:1;padding:8px}
                 <div class="metric"><div class="mv">12</div><div class="ml" data-en="Merchants onboarded" data-ar="تجار مُسجَّلون">Merchants onboarded</div><div class="mc" data-en="↑ 3 vs last month" data-ar="↑ 3 مقارنة بالشهر الماضي">↑ 3 vs last month</div></div>
                 <div class="metric"><div class="mv">SAR 84K</div><div class="ml" data-en="GMV generated" data-ar="حجم المعاملات">GMV generated</div><div class="mc" data-en="↑ 18% vs target" data-ar="↑ 18% من الهدف">↑ 18% vs target</div></div>
                 <div class="metric"><div class="mv">94%</div><div class="ml" data-en="Activation rate" data-ar="معدل التفعيل">Activation rate</div><div class="mc" data-en="↑ 6pp vs avg" data-ar="↑ 6 نقاط فوق المتوسط">↑ 6pp vs avg</div></div>
+              </div>
+              <!-- new products alert -->
+              <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                <div style="background:#FFEBEE;border-radius:8px;padding:8px 11px;font-size:11px;color:#C62828;display:flex;align-items:center;gap:6px;flex:1;min-width:140px"><i class="ti ti-credit-card" style="font-size:14px;flex-shrink:0"></i><div><strong>New: BNPL</strong><div style="font-size:10px;margin-top:1px" data-en="Offer Buy Now Pay Later to merchants' customers" data-ar="اعرض الدفع الآجل لعملاء التجار">Offer Buy Now Pay Later to merchants' customers</div></div></div>
+                <div style="background:#E3F2FD;border-radius:8px;padding:8px 11px;font-size:11px;color:#1565C0;display:flex;align-items:center;gap:6px;flex:1;min-width:140px"><i class="ti ti-truck" style="font-size:14px;flex-shrink:0"></i><div><strong>New: Logistics</strong><div style="font-size:10px;margin-top:1px" data-en="Bundle with POS for merchants who deliver goods" data-ar="حزم مع POS للتجار الذين يوصلون البضائع">Bundle with POS for merchants who deliver goods</div></div></div>
+                <div style="background:#E8F5EE;border-radius:8px;padding:8px 11px;font-size:11px;color:#0F6E46;display:flex;align-items:center;gap:6px;flex:1;min-width:140px"><i class="ti ti-user-check" style="font-size:14px;flex-shrink:0"></i><div><strong>Segment: Freelancers</strong><div style="font-size:10px;margin-top:1px" data-en="No CR needed, use tasreeh permit for onboarding" data-ar="لا يلزم سجل تجاري، استخدم تصريح العمل الحر">No CR needed, use tasreeh permit for onboarding</div></div></div>
               </div>
             </div>
 
@@ -483,9 +499,15 @@ nav.snav{flex:1;padding:8px}
                 <div class="metric"><div class="mv">94%</div><div class="ml" data-en="Activation rate" data-ar="معدل التفعيل">Activation rate</div><div class="mc" data-en="Top 10% of agents" data-ar="أفضل 10% من الوكلاء">Top 10% of agents</div></div>
               </div>
               <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px" data-en="Monthly onboarding trend" data-ar="اتجاه التسجيل الشهري">Monthly onboarding trend</div>
-              <div style="position:relative;height:120px;background:var(--bg);border-radius:10px;padding:12px 14px;overflow:hidden">
+              <div style="display:flex;gap:6px">
+                <div style="display:flex;flex-direction:column;justify-content:space-between;padding:12px 0 20px;font-size:9px;color:var(--muted);text-align:right;width:24px;flex-shrink:0">
+                  <span>12</span><span>8</span><span>4</span>
+                </div>
+                <div style="flex:1;position:relative;height:120px;background:var(--bg);border-radius:10px;padding:12px 14px;overflow:hidden">
                 <svg width="100%" height="96" viewBox="0 0 500 96" preserveAspectRatio="none">
                   <defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1B8A5A" stop-opacity="0.3"/><stop offset="100%" stop-color="#1B8A5A" stop-opacity="0"/></linearGradient></defs>
+                  <line x1="0" y1="30" x2="500" y2="30" stroke="#E4E6EA" stroke-width="1" stroke-dasharray="4,4"/>
+                  <line x1="0" y1="60" x2="500" y2="60" stroke="#E4E6EA" stroke-width="1" stroke-dasharray="4,4"/>
                   <path d="M0,80 L62,72 L125,60 L187,65 L250,45 L312,50 L375,30 L437,20 L500,10 L500,96 L0,96 Z" fill="url(#gr)"/>
                   <path d="M0,80 L62,72 L125,60 L187,65 L250,45 L312,50 L375,30 L437,20 L500,10" fill="none" stroke="#1B8A5A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <circle cx="500" cy="10" r="4" fill="#1B8A5A"/>
@@ -493,6 +515,7 @@ nav.snav{flex:1;padding:8px}
                 <div style="position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:space-between;padding:0 14px;font-size:10px;color:var(--muted)">
                   <span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
                 </div>
+              </div>
               </div>
               <div style="margin-top:14px;font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px" data-en="Merchant health summary" data-ar="ملخص صحة التجار">Merchant health summary</div>
               <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
@@ -531,6 +554,7 @@ nav.snav{flex:1;padding:8px}
                   <button class="chip" onclick="pitchFill('Freelance photographer in Jeddah, invoices clients manually, no digital payment method, has freelance permit')">Freelancer</button>
                 </div>
                 <textarea id="pitch-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Auto parts shop in Dammam, 15 staff, owner uses Excel for inventory, no digital payments yet..."></textarea>
+                <div style="font-size:10px;color:var(--sub);margin-top:-5px;margin-bottom:8px">Tip: include business type, location, staff count, and current payment setup</div>
                 <button class="btn-primary" style="width:100%" onclick="runPitch()" id="btn-pitch"><i class="ti ti-speakerphone" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Build my pitch →</button>
                 <div id="pitch-output" style="display:none;margin-top:12px"></div>
               </div>
@@ -545,6 +569,7 @@ nav.snav{flex:1;padding:8px}
                   <button class="chip" onclick="profilerFill('Small grocery store Riyadh, owner Faisal, 3 staff, sells fresh produce and dairy, delivers to nearby apartments')">Grocery with delivery</button>
                 </div>
                 <textarea id="profiler-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Small grocery in Riyadh, owner is Faisal, sells fresh produce and dairy, 5 staff..."></textarea>
+                <div style="font-size:10px;color:var(--sub);margin-top:-5px;margin-bottom:8px">Tip: mention if they are a freelancer, their sector, and estimated size</div>
                 <button class="btn-primary" style="width:100%" onclick="runProfiler()" id="btn-profiler"><i class="ti ti-sparkles" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i><span data-en="Build merchant profile →" data-ar="بناء ملف التاجر →">Build merchant profile →</span></button>
                 <div id="profiler-output" style="display:none;margin-top:12px"></div>
               </div>
@@ -595,6 +620,7 @@ nav.snav{flex:1;padding:8px}
                   <button class="chip" onclick="financeFill('Al-Noor Bakery, food retail, just activated 1 month ago, monthly volume SAR 25,000, new merchant')">New merchant 1 month</button>
                 </div>
                 <textarea id="finance-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Restaurant activated 6 months ago, monthly volume SAR 60,000, wants to open a second branch..."></textarea>
+                <div style="font-size:10px;color:var(--sub);margin-top:-5px;margin-bottom:8px">Tip: include months active and estimated monthly transaction volume in SAR</div>
                 <button class="btn-primary" style="width:100%" onclick="runFinance()" id="btn-finance"><i class="ti ti-cash" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Check financing eligibility →</button>
                 <div id="finance-output" style="display:none;margin-top:12px"></div>
               </div>
@@ -666,6 +692,12 @@ nav.snav{flex:1;padding:8px}
                 <i class="ti ti-map-pin" style="font-size:17px;color:var(--g)"></i>
                 <div><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="Visit Tech Gulf Trading" data-ar="زيارة تك خليج للتجارة">Visit Tech Gulf Trading</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="4:30 PM · Al Olaya, Riyadh" data-ar="4:30 م · العليا، الرياض">4:30 PM · Al Olaya, Riyadh</div></div>
               </div>
+            </div>
+            <!-- new products highlight -->
+            <div style="display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap">
+              <div style="background:#FFEBEE;border-radius:9px;padding:8px 10px;font-size:10px;color:#C62828;display:flex;align-items:center;gap:5px;flex:1;min-width:100px"><i class="ti ti-credit-card" style="font-size:13px;flex-shrink:0"></i><div><strong>New: BNPL</strong><div style="margin-top:1px">Buy Now Pay Later for merchants</div></div></div>
+              <div style="background:#E3F2FD;border-radius:9px;padding:8px 10px;font-size:10px;color:#1565C0;display:flex;align-items:center;gap:5px;flex:1;min-width:100px"><i class="ti ti-truck" style="font-size:13px;flex-shrink:0"></i><div><strong>New: Logistics</strong><div style="margin-top:1px">Bundle with POS for delivery merchants</div></div></div>
+              <div style="background:#E8F5EE;border-radius:9px;padding:8px 10px;font-size:10px;color:#0F6E46;display:flex;align-items:center;gap:5px;flex:1;min-width:100px"><i class="ti ti-user-check" style="font-size:13px;flex-shrink:0"></i><div><strong>Freelancers</strong><div style="margin-top:1px">Tasreeh permit, no CR needed</div></div></div>
             </div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em" data-en="QUICK ACTIONS" data-ar="إجراءات سريعة">QUICK ACTIONS</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
@@ -987,6 +1019,11 @@ function setLang(l){
   });
   refreshSceneText();
   if(typeof updateDateTime === 'function') updateDateTime();
+  // re-render AI outputs with new direction
+  document.querySelectorAll('.ai-result div[style*="direction"]').forEach(el=>{
+    el.style.direction=l==='ar'?'rtl':'ltr';
+    el.style.textAlign=l==='ar'?'right':'left';
+  });
 }
 
 // ── STORY ──
@@ -1034,9 +1071,12 @@ function getDashGreeting(){
 }
 const dSubs={dash:{en:'Loading date...',ar:'جارٍ تحميل التاريخ...'},onboard:{en:'Al-Noor Bakery · Step 2 of 4',ar:'مخبز النور · الخطوة 2 من 4'},pipe:{en:'4 active merchants',ar:'4 تجار نشطون'},ai:{en:'Powered by HALA intelligence',ar:'مدعوم بذكاء HALA'},perf:{en:'8 months active · Riyadh Region',ar:'8 أشهر نشاط · منطقة الرياض'}};
 function dShow(s){
-  ['dash','onboard','pipe','ai','perf'].forEach(x=>{const el=document.getElementById('d-'+x);if(el)el.style.display=x===s?'block':'none'});
+  ['dash','onboard','pipe','ai','perf'].forEach(x=>{
+    const el=document.getElementById('d-'+x);
+    if(el){el.style.display=x===s?'block':'none';if(x===s){el.classList.remove('section-fadein');void el.offsetWidth;el.classList.add('section-fadein');}}
+  });
   const dProd=document.getElementById('d-products');
-  if(dProd)dProd.style.display=s==='dash'?'block':'none';
+  if(dProd){dProd.style.display=s==='dash'?'block':'none';if(s==='dash'){dProd.classList.remove('section-fadein');void dProd.offsetWidth;dProd.classList.add('section-fadein');}}
   const greeting = getDashGreeting();
   const title = s==='dash' ? greeting[lang] : (dTitles[s]?.[lang] || dTitles[s]?.en);
   document.getElementById('d-title').textContent = title;
@@ -1046,7 +1086,7 @@ function dShow(s){
   });
 }
 function dShowHint(){document.getElementById('d-hint').style.display='block'}
-function toggleTask(el){const d=el.classList.contains('done');el.classList.toggle('done');el.textContent=d?'':'✓';const t=el.nextElementSibling.querySelector('.task-text');t.style.textDecoration=d?'none':'line-through';t.style.color=d?'':'var(--muted)'}
+function toggleTask(el){const d=el.classList.contains('done');el.classList.toggle('done');el.textContent=d?'':'✓';if(!d){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),300);}const t=el.nextElementSibling.querySelector('.task-text');t.style.textDecoration=d?'none':'line-through';t.style.color=d?'':'var(--muted)'}
 
 // ── AI RESPONSES ──
 const aiR={
@@ -1108,7 +1148,7 @@ function setModeM(m){
 
 // proxy URL — Groq key lives securely on Vercel, never in this file
 const PROXY_URL = 'https://hala-proxy.vercel.app/api/chat';
-const MAX_CALLS = 8;
+const MAX_CALLS = 10;
 
 function getCallCount(){
   return parseInt(localStorage.getItem('hala_ai_calls') || '0');
@@ -1163,10 +1203,22 @@ function renderResult(text, remaining){
   const html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
   const dir = isAr ? 'rtl' : 'ltr';
   const label = isAr ? 'رد HALA الذكي' : 'HALA AI response';
-  const remainingNote = remaining <= 2 && remaining > 0
-    ? `<div style="margin-top:10px;padding:7px 10px;background:#FFF8E1;border-radius:7px;font-size:11px;color:#7B4A00"><i class="ti ti-alert-circle" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i>${isAr ? `تبقى لك ${remaining} استجابات فقط من هذه الجلسة.` : `${remaining} response${remaining===1?'':'s'} remaining in this session.`}</div>`
-    : '';
-  return `<div class="ai-result"><div class="ai-result-label"><i class="ti ti-sparkles" style="font-size:13px"></i>${label}</div><div style="line-height:1.7;font-size:12px;direction:${dir};text-align:${isAr?'right':'left'}">${html}</div>${remainingNote}</div>`;
+  const total = MAX_CALLS;
+  const used = getCallCount();
+  const left = total - used;
+  let counterHtml = '';
+  if(left <= 5 && left > 0){
+    const cls = left <= 2 ? 'danger' : left <= 4 ? 'warn' : '';
+    const msg = isAr ? `تبقى ${left} من ${total} استجابات` : `${left} of ${total} responses remaining`;
+    counterHtml = `<div class="usage-counter ${cls}"><i class="ti ti-battery" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>${msg}</div>`;
+  }
+  const retryLabel = isAr ? 'حاول مجدداً' : 'Try again';
+  return `<div class="ai-result"><div class="ai-result-label"><i class="ti ti-sparkles" style="font-size:13px"></i>${label}<button onclick="this.closest('.ai-result').remove()" style="margin-left:auto;background:transparent;border:none;color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:3px"><i class="ti ti-refresh" style="font-size:12px"></i>${retryLabel}</button></div><div style="line-height:1.7;font-size:12px;direction:${dir};text-align:${isAr?'right':'left'}">${html}</div>${counterHtml}</div>`;
+}
+
+function scrollToOutput(el){
+  if(!el)return;
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
 }
 
 // fill helpers
@@ -1312,8 +1364,8 @@ Keep it field-ready. The agent is in front of the merchant right now.`;
 
 function rewardsFill(t){['rewards-input','m-rewards-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
 function financeFill(t){['finance-input','m-finance-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
-function runFinance(){const v=document.getElementById('finance-input').value.trim();if(!v)return;callGroq(SYS_FINANCE,v,'finance-output','btn-finance');}
-function mRunFinance(){const v=document.getElementById('m-finance-input').value.trim();if(!v)return;callGroq(SYS_FINANCE,v,'m-finance-output','m-btn-finance');}
+function runFinance(){if(!validateInput('finance-input'))return;const v=document.getElementById('finance-input').value.trim();callGroq(SYS_FINANCE,v,'finance-output','btn-finance');}
+function mRunFinance(){if(!validateInput('m-finance-input'))return;const v=document.getElementById('m-finance-input').value.trim();callGroq(SYS_FINANCE,v,'m-finance-output','m-btn-finance');}
 
 const SYS_FINANCE=`You are HALA's financing qualification AI. HALA Financing provides working capital loans for MSMEs and freelancers in Saudi Arabia. Financing decisions are based on live business performance using POS and payment history rather than traditional credit scores.
 
@@ -1352,9 +1404,9 @@ WHAT THE AGENT SHOULD SAY:
 UPSELL TIMING:
 [Best moment to bring this up: during the visit, at activation, or after first month of transactions]`;
 
-function runRewards(){const v=document.getElementById('rewards-input').value.trim();if(!v)return;callGroq(SYS_REWARDS,v,'rewards-output','btn-rewards');}
-function mRunRewards(){const v=document.getElementById('m-rewards-input').value.trim();if(!v)return;callGroq(SYS_REWARDS,v,'m-rewards-output','m-btn-rewards');}
-function runPitch(){const v=document.getElementById('pitch-input').value.trim();if(!v)return;callGroq(SYS_PITCH,v,'pitch-output','btn-pitch');}
+function runRewards(){if(!validateInput('rewards-input'))return;const v=document.getElementById('rewards-input').value.trim();callGroq(SYS_REWARDS,v,'rewards-output','btn-rewards');}
+function mRunRewards(){if(!validateInput('m-rewards-input'))return;const v=document.getElementById('m-rewards-input').value.trim();callGroq(SYS_REWARDS,v,'m-rewards-output','m-btn-rewards');}
+function runPitch(){if(!validateInput('pitch-input'))return;const v=document.getElementById('pitch-input').value.trim();callGroq(SYS_PITCH,v,'pitch-output','btn-pitch');}
 function runProfiler(){
   const v=document.getElementById('profiler-input').value.trim();
   if(!v)return;
@@ -1370,7 +1422,7 @@ function runObjection(){
   if(!v)return;
   callGroq(SYS_OBJECTION,v,'objection-output','btn-objection');
 }
-function mRunPitch(){const v=document.getElementById('m-pitch-input').value.trim();if(!v)return;callGroq(SYS_PITCH,v,'m-pitch-output','m-btn-pitch');}
+function mRunPitch(){if(!validateInput('m-pitch-input'))return;const v=document.getElementById('m-pitch-input').value.trim();callGroq(SYS_PITCH,v,'m-pitch-output','m-btn-pitch');}
 function mRunProfiler(){
   const v=document.getElementById('m-profiler-input').value.trim();
   if(!v)return;
@@ -1412,6 +1464,7 @@ document.addEventListener('DOMContentLoaded', function(){
   setMode('pitch');
   setModeM('pitch');
   dShow('dash');
+  goScene(0); // start on scene 1 so narrative flows naturally
   updateDateTime();
   setInterval(updateClock, 1000);
 });
@@ -1467,7 +1520,7 @@ function updateDateTime(){
 
 </script>
 <!-- ALWAYS VISIBLE FEEDBACK BUTTON -->
-<div style="position:fixed;bottom:20px;right:20px;z-index:998">
+<div style="position:fixed;bottom:72px;right:16px;z-index:998">
   <a href="mailto:waxas.arshad@gmail.com?subject=HALA Agent Demo Feedback&body=Hi Waqas,%0A%0AI just tried your HALA Agent demo and wanted to share some thoughts:%0A%0A" style="display:flex;align-items:center;gap:7px;background:#1B8A5A;color:white;text-decoration:none;padding:10px 16px;border-radius:30px;font-size:13px;font-weight:500;box-shadow:0 4px 14px rgba(27,138,90,0.35)"><i class="ti ti-message-circle" style="font-size:16px"></i>Share feedback</a>
 </div>
 
@@ -1478,9 +1531,9 @@ function updateDateTime(){
       <i class="ti ti-robot" style="font-size:24px;color:#1B8A5A"></i>
     </div>
     <div style="font-size:18px;font-weight:500;color:var(--text);margin-bottom:10px">You have explored the full demo</div>
-    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:8px">You have used all 8 AI responses in this session.</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:8px">You have used all 10 AI responses in this session.</div>
     <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px;background:var(--bg);border-radius:10px;padding:12px 14px;text-align:left">
-      This prototype was built by <strong style="color:var(--text)">Waqas Arshad</strong>, a Senior Product Manager with 14 years of experience across fintech, B2B SaaS, telecom and digital products.<br><br>
+      This prototype was built by <strong style="color:var(--text)">Waqas Arshad</strong>, a Senior Product Manager with 10 years of experience across fintech, B2B SaaS, telecom and digital products.<br><br>
       If you have feedback, questions, or would like to discuss this further, reach out directly.
     </div>
     <a href="mailto:waxas.arshad@gmail.com?subject=HALA Agent Demo&body=Hi Waqas,%0A%0AI explored your HALA Agent demo and would like to connect.%0A%0A" style="display:block;background:#1B8A5A;color:white;text-decoration:none;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:500;margin-bottom:10px;text-align:center"><i class="ti ti-mail" style="font-size:15px;vertical-align:-2px;margin-right:6px"></i>Get in touch with Waqas</a>
