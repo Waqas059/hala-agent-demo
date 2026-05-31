@@ -323,7 +323,7 @@ nav.snav{flex:1;padding:8px}
           <div class="ni" id="ni-pipe" onclick="dShow('pipe')"><i class="ti ti-users"></i><span data-en="My Pipeline" data-ar="قائمة العملاء">My Pipeline</span><span class="badge">4</span></div>
           <div class="nl" data-en="SUPPORT" data-ar="الدعم">SUPPORT</div>
           <div class="ni" id="ni-ai" onclick="dShow('ai')"><i class="ti ti-robot"></i><span data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</span></div>
-          <div class="ni"><i class="ti ti-chart-bar"></i><span data-en="Performance" data-ar="الأداء">Performance</span></div>
+          <div class="ni" id="ni-perf" onclick="dShow('perf')"><i class="ti ti-chart-bar"></i><span data-en="Performance" data-ar="الأداء">Performance</span></div>
         </nav>
       </div>
       <div class="d-main">
@@ -415,20 +415,97 @@ nav.snav{flex:1;padding:8px}
               </div>
             </div>
 
-            <!-- PIPELINE -->
+            <!-- PIPELINE with merchant health -->
             <div id="d-pipe" class="card" style="display:none">
               <div class="ct"><i class="ti ti-users"></i><span data-en="Active pipeline" data-ar="قائمة التجار النشطة">Active pipeline</span></div>
+              <!-- alerts -->
+              <div style="background:#FFEBEE;border-radius:9px;padding:9px 12px;font-size:11px;color:#C62828;margin-bottom:12px;display:flex;align-items:center;gap:8px"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0"></i><span data-en="Noor Fashion has not processed a transaction in 8 days. Risk of churn — follow up today." data-ar="لم تُجرِ نور للأزياء أي معاملة منذ 8 أيام. خطر فقدان العميل — تابع اليوم.">Noor Fashion has not processed a transaction in 8 days. Risk of churn — follow up today.</span></div>
               <div class="plist">
-                <div class="pi"><div class="pa">AN</div><div><div class="pn" data-en="Al-Noor Bakery" data-ar="مخبز النور">Al-Noor Bakery</div><div class="pb" data-en="Retail · Mohammed Al-Sayed" data-ar="تجزئة · محمد السيد">Retail · Mohammed Al-Sayed</div></div><span class="ps s-kyc" data-en="KYC pending" data-ar="بانتظار التحقق">KYC pending</span></div>
-                <div class="pi"><div class="pa" style="background:var(--blue)">SF</div><div><div class="pn" data-en="Star Fitness Center" data-ar="مركز ستار للياقة">Star Fitness Center</div><div class="pb" data-en="Services · Fahad Al-Qahtani" data-ar="خدمات · فهد القحطاني">Services · Fahad Al-Qahtani</div></div><span class="ps s-rev" data-en="In review" data-ar="قيد المراجعة">In review</span></div>
-                <div class="pi"><div class="pa" style="background:var(--purple)">TG</div><div><div class="pn" data-en="Tech Gulf Trading" data-ar="تك خليج للتجارة">Tech Gulf Trading</div><div class="pb" data-en="Electronics · Sara Al-Otaibi" data-ar="إلكترونيات · سارة العتيبي">Electronics · Sara Al-Otaibi</div></div><span class="ps s-new" data-en="New lead" data-ar="عميل جديد">New lead</span></div>
-                <div class="pi"><div class="pa" style="background:#2E7D32">NF</div><div><div class="pn" data-en="Noor Fashion" data-ar="نور للأزياء">Noor Fashion</div><div class="pb" data-en="Retail · Noura Al-Harbi" data-ar="تجزئة · نورة الحربي">Retail · Noura Al-Harbi</div></div><span class="ps s-act" data-en="Activated" data-ar="مفعّل">Activated</span></div>
+                <div class="pi" style="flex-direction:column;align-items:stretch;gap:8px">
+                  <div style="display:flex;align-items:center;gap:11px">
+                    <div class="pa">AN</div>
+                    <div style="flex:1"><div class="pn" data-en="Al-Noor Bakery" data-ar="مخبز النور">Al-Noor Bakery</div><div class="pb" data-en="Retail · Mohammed Al-Sayed" data-ar="تجزئة · محمد السيد">Retail · Mohammed Al-Sayed</div></div>
+                    <span class="ps s-kyc" data-en="KYC pending" data-ar="بانتظار التحقق">KYC pending</span>
+                  </div>
+                  <div style="background:var(--bg);border-radius:7px;padding:8px 10px;display:flex;gap:16px;font-size:11px;color:var(--muted)">
+                    <span><i class="ti ti-clock" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="Waiting 3 days" data-ar="في الانتظار 3 أيام">Waiting 3 days</span></span>
+                    <span><i class="ti ti-file-text" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="CR docs missing" data-ar="مستندات السجل التجاري مفقودة">CR docs missing</span></span>
+                    <span style="margin-left:auto;color:#E65100;font-weight:500" data-en="Action needed" data-ar="يلزم إجراء">Action needed</span>
+                  </div>
+                </div>
+                <div class="pi" style="flex-direction:column;align-items:stretch;gap:8px">
+                  <div style="display:flex;align-items:center;gap:11px">
+                    <div class="pa" style="background:var(--blue)">SF</div>
+                    <div style="flex:1"><div class="pn" data-en="Star Fitness Center" data-ar="مركز ستار للياقة">Star Fitness Center</div><div class="pb" data-en="Services · Fahad Al-Qahtani" data-ar="خدمات · فهد القحطاني">Services · Fahad Al-Qahtani</div></div>
+                    <span class="ps s-rev" data-en="In review" data-ar="قيد المراجعة">In review</span>
+                  </div>
+                  <div style="background:var(--bg);border-radius:7px;padding:8px 10px;display:flex;gap:16px;font-size:11px;color:var(--muted)">
+                    <span><i class="ti ti-clock" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="In review 2 days" data-ar="قيد المراجعة منذ يومين">In review 2 days</span></span>
+                    <span><i class="ti ti-check" style="font-size:12px;vertical-align:-1px;margin-right:3px;color:#2E7D32"></i><span data-en="All docs submitted" data-ar="جميع المستندات مُقدَّمة">All docs submitted</span></span>
+                  </div>
+                </div>
+                <div class="pi" style="flex-direction:column;align-items:stretch;gap:8px">
+                  <div style="display:flex;align-items:center;gap:11px">
+                    <div class="pa" style="background:var(--purple)">TG</div>
+                    <div style="flex:1"><div class="pn" data-en="Tech Gulf Trading" data-ar="تك خليج للتجارة">Tech Gulf Trading</div><div class="pb" data-en="Electronics · Sara Al-Otaibi" data-ar="إلكترونيات · سارة العتيبي">Electronics · Sara Al-Otaibi</div></div>
+                    <span class="ps s-new" data-en="New lead" data-ar="عميل جديد">New lead</span>
+                  </div>
+                  <div style="background:var(--bg);border-radius:7px;padding:8px 10px;display:flex;gap:16px;font-size:11px;color:var(--muted)">
+                    <span><i class="ti ti-calendar" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="Visit scheduled 4:30 PM today" data-ar="زيارة مجدولة اليوم 4:30 م">Visit scheduled 4:30 PM today</span></span>
+                    <span style="margin-left:auto;color:#1565C0;font-weight:500;cursor:pointer" onclick="setMode('pitch');dShow('ai')" data-en="Build pitch →" data-ar="ابنِ العرض →">Build pitch →</span>
+                  </div>
+                </div>
+                <div class="pi" style="flex-direction:column;align-items:stretch;gap:8px;border:1px solid #FFCDD2">
+                  <div style="display:flex;align-items:center;gap:11px">
+                    <div class="pa" style="background:#2E7D32">NF</div>
+                    <div style="flex:1"><div class="pn" data-en="Noor Fashion" data-ar="نور للأزياء">Noor Fashion</div><div class="pb" data-en="Retail · Noura Al-Harbi" data-ar="تجزئة · نورة الحربي">Retail · Noura Al-Harbi</div></div>
+                    <span class="ps s-act" data-en="Activated" data-ar="مفعّل">Activated</span>
+                  </div>
+                  <div style="background:#FFEBEE;border-radius:7px;padding:8px 10px;display:flex;gap:16px;font-size:11px;color:#C62828">
+                    <span><i class="ti ti-alert-triangle" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="No transactions in 8 days" data-ar="لا معاملات منذ 8 أيام">No transactions in 8 days</span></span>
+                    <span><i class="ti ti-trending-down" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="Volume down 60% this month" data-ar="الحجم انخفض 60% هذا الشهر">Volume down 60% this month</span></span>
+                    <span style="margin-left:auto;font-weight:500;cursor:pointer" data-en="Call now" data-ar="اتصل الآن">Call now</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PERFORMANCE -->
+            <div id="d-perf" class="card" style="display:none">
+              <div class="ct"><i class="ti ti-chart-bar"></i><span data-en="My performance" data-ar="أدائي">My performance</span></div>
+              <div class="metrics" style="margin-bottom:16px">
+                <div class="metric"><div class="mv">12</div><div class="ml" data-en="Merchants this month" data-ar="تجار هذا الشهر">Merchants this month</div><div class="mc" data-en="↑ 3 vs last month" data-ar="↑ 3 مقارنة بالشهر الماضي">↑ 3 vs last month</div></div>
+                <div class="metric"><div class="mv">SAR 84K</div><div class="ml" data-en="GMV generated" data-ar="حجم المعاملات">GMV generated</div><div class="mc" data-en="↑ 18% vs target" data-ar="↑ 18% من الهدف">↑ 18% vs target</div></div>
+                <div class="metric"><div class="mv">94%</div><div class="ml" data-en="Activation rate" data-ar="معدل التفعيل">Activation rate</div><div class="mc" data-en="Top 10% of agents" data-ar="أفضل 10% من الوكلاء">Top 10% of agents</div></div>
+              </div>
+              <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px" data-en="Monthly onboarding trend" data-ar="اتجاه التسجيل الشهري">Monthly onboarding trend</div>
+              <div style="position:relative;height:120px;background:var(--bg);border-radius:10px;padding:12px 14px;overflow:hidden">
+                <svg width="100%" height="96" viewBox="0 0 500 96" preserveAspectRatio="none">
+                  <defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1B8A5A" stop-opacity="0.3"/><stop offset="100%" stop-color="#1B8A5A" stop-opacity="0"/></linearGradient></defs>
+                  <path d="M0,80 L62,72 L125,60 L187,65 L250,45 L312,50 L375,30 L437,20 L500,10 L500,96 L0,96 Z" fill="url(#gr)"/>
+                  <path d="M0,80 L62,72 L125,60 L187,65 L250,45 L312,50 L375,30 L437,20 L500,10" fill="none" stroke="#1B8A5A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="500" cy="10" r="4" fill="#1B8A5A"/>
+                </svg>
+                <div style="position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:space-between;padding:0 14px;font-size:10px;color:var(--muted)">
+                  <span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
+                </div>
+              </div>
+              <div style="margin-top:14px;font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px" data-en="Merchant health summary" data-ar="ملخص صحة التجار">Merchant health summary</div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+                <div style="background:#E8F5E9;border-radius:9px;padding:10px 12px;text-align:center"><div style="font-size:18px;font-weight:600;color:#2E7D32">8</div><div style="font-size:10px;color:#2E7D32;margin-top:2px" data-en="Healthy" data-ar="بصحة جيدة">Healthy</div></div>
+                <div style="background:#FFF8E1;border-radius:9px;padding:10px 12px;text-align:center"><div style="font-size:18px;font-weight:600;color:#E65100">3</div><div style="font-size:10px;color:#E65100;margin-top:2px" data-en="At risk" data-ar="في خطر">At risk</div></div>
+                <div style="background:#FFEBEE;border-radius:9px;padding:10px 12px;text-align:center"><div style="font-size:18px;font-weight:600;color:#C62828">1</div><div style="font-size:10px;color:#C62828;margin-top:2px" data-en="Churning" data-ar="على وشك المغادرة">Churning</div></div>
+              </div>
+              <div style="margin-top:14px;font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px" data-en="PM product notes" data-ar="ملاحظات مدير المنتج">PM product notes</div>
+              <div style="background:var(--bg);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.7;border-left:3px solid var(--g)">
+                <strong style="color:var(--text)" data-en="What I would track from day 1:" data-ar="ما سأتتبعه من اليوم الأول:">What I would track from day 1:</strong><br>
+                <span data-en="Time to first transaction after activation, 7-day and 30-day retention rates, average transaction volume per merchant by category, agent conversion rate by merchant type, and drop-off rate at each onboarding step. These metrics directly answer whether agents are selling the right product to the right merchant and whether merchants are actually using HALA after activation." data-ar="الوقت حتى أول معاملة بعد التفعيل، ومعدلات الاحتفاظ بعد 7 و30 يوم، ومتوسط حجم المعاملات لكل تاجر حسب الفئة، ومعدل تحويل الوكيل حسب نوع التاجر، ومعدل التراجع في كل خطوة من خطوات التسجيل.">Time to first transaction after activation, 7-day and 30-day retention rates, average transaction volume per merchant by category, agent conversion rate by merchant type, and drop-off rate at each onboarding step. These metrics directly answer whether agents are selling the right product to the right merchant and whether merchants are actually using HALA after activation.</span>
               </div>
             </div>
 
             <!-- AI AGENT full: 4 modes -->
             <div id="d-ai" class="card" style="display:none">
-              <div class="ct"><i class="ti ti-robot"></i><span>HALA AI Agent: 4 capabilities</span></div>
+              <div class="ct"><i class="ti ti-robot"></i><span>HALA AI Agent: 6 capabilities</span></div>
               <div id="agent-modes">
               <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
                 <button class="mode-tab active" id="tab-pitch" onclick="setMode('pitch')"><i class="ti ti-speakerphone" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Pitch Builder</span></button>
@@ -436,6 +513,7 @@ nav.snav{flex:1;padding:8px}
                 <button class="mode-tab" id="tab-compliance" onclick="setMode('compliance')"><i class="ti ti-shield-check" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Compliance Check</span></button>
                 <button class="mode-tab" id="tab-objection" onclick="setMode('objection')"><i class="ti ti-message-2" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Objection Handler</span></button>
                 <button class="mode-tab" id="tab-rewards" onclick="setMode('rewards')"><i class="ti ti-star" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Rewards Calculator</span></button>
+                <button class="mode-tab" id="tab-finance" onclick="setMode('finance')"><i class="ti ti-cash" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i><span>Financing Check</span></button>
               </div>
               <!-- PITCH BUILDER: shown first -->
               <div id="mode-pitch">
@@ -498,6 +576,18 @@ nav.snav{flex:1;padding:8px}
                 <textarea id="rewards-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Grocery store in Riyadh, estimated monthly sales 60,000 SAR..."></textarea>
                 <button class="btn-primary" style="width:100%" onclick="runRewards()" id="btn-rewards"><i class="ti ti-star" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Calculate rewards earnings →</button>
                 <div id="rewards-output" style="display:none;margin-top:12px"></div>
+              </div>
+              <!-- FINANCING QUALIFIER -->
+              <div id="mode-finance" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:9px;line-height:1.5">Tell the AI about an activated merchant. It checks if they likely qualify for HALA Financing and gives you the exact upsell pitch to use on the spot.</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px">
+                  <button class="chip" onclick="financeFill('Noor Fashion, retail clothing, activated 8 months ago, average monthly volume SAR 45,000, consistent usage, 2 HALA products active')">Noor Fashion 8 months</button>
+                  <button class="chip" onclick="financeFill('Star Fitness Center, gym services, activated 14 months ago, monthly volume SAR 80,000, wants to expand to second branch')">Star Fitness expanding</button>
+                  <button class="chip" onclick="financeFill('Al-Noor Bakery, food retail, just activated 1 month ago, monthly volume SAR 25,000, new merchant')">New merchant 1 month</button>
+                </div>
+                <textarea id="finance-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Restaurant activated 6 months ago, monthly volume SAR 60,000, wants to open a second branch..."></textarea>
+                <button class="btn-primary" style="width:100%" onclick="runFinance()" id="btn-finance"><i class="ti ti-cash" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Check financing eligibility →</button>
+                <div id="finance-output" style="display:none;margin-top:12px"></div>
               </div>
               </div><!-- end agent-modes -->
             </div><!-- end d-ai card -->
@@ -646,7 +736,7 @@ nav.snav{flex:1;padding:8px}
         <div class="m-page hidden" id="mp-ai">
           <div style="background:var(--g);padding:15px 16px;color:white;display:flex;align-items:center;gap:10px;flex-shrink:0">
             <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" onclick="mGo('home')"></i>
-            <div><div style="font-weight:600;font-size:15px" data-en="AI Agent" data-ar="وكيل الذكاء الاصطناعي">AI Agent</div><div style="font-size:11px;opacity:0.72;margin-top:2px" data-en="3 capabilities" data-ar="3 قدرات">3 capabilities</div></div>
+            <div><div style="font-weight:600;font-size:15px" data-en="AI Agent" data-ar="وكيل الذكاء الاصطناعي">AI Agent</div><div style="font-size:11px;opacity:0.72;margin-top:2px" data-en="6 capabilities" data-ar="6 قدرات">6 capabilities</div></div>
             <div style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#69F0AE"></div>
           </div>
           <div style="flex:1;overflow-y:auto;padding:12px 13px 8px">
@@ -658,6 +748,7 @@ nav.snav{flex:1;padding:8px}
                 <button class="mode-tab" id="m-tab-compliance" onclick="setModeM('compliance')" style="font-size:11px;padding:6px 10px"><i class="ti ti-shield-check" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Compliance</button>
                 <button class="mode-tab" id="m-tab-objection" onclick="setModeM('objection')" style="font-size:11px;padding:6px 10px"><i class="ti ti-message-2" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Objection</button>
                 <button class="mode-tab" id="m-tab-rewards" onclick="setModeM('rewards')" style="font-size:11px;padding:6px 10px"><i class="ti ti-star" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Rewards</button>
+                <button class="mode-tab" id="m-tab-finance" onclick="setModeM('finance')" style="font-size:11px;padding:6px 10px"><i class="ti ti-cash" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Financing</button>
               </div>
               <!-- MOBILE PITCH: shown first -->
               <div id="m-pitch">
@@ -717,6 +808,18 @@ nav.snav{flex:1;padding:8px}
                 <textarea id="m-objection-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="What did the merchant say?..."></textarea>
                 <button class="mbtn" id="m-btn-objection" onclick="mRunObjection()" style="font-size:13px"><i class="ti ti-bolt" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Get winning response →</button>
                 <div id="m-objection-output" style="display:none;margin-top:10px"></div>
+              </div>
+              <!-- MOBILE FINANCING -->
+              <div id="m-finance" style="display:none">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5">Check if an activated merchant qualifies for HALA Financing and get the exact upsell pitch.</div>
+                <div class="mqc" style="margin-bottom:9px">
+                  <button class="chip" onclick="financeFill('Noor Fashion, retail, 8 months active, monthly volume SAR 45,000')">Noor Fashion 8mo</button>
+                  <button class="chip" onclick="financeFill('Star Fitness, gym, 14 months active, monthly volume SAR 80,000, wants second branch')">Star Fitness expand</button>
+                  <button class="chip" onclick="financeFill('New bakery, 1 month active, monthly volume SAR 20,000')">New merchant 1mo</button>
+                </div>
+                <textarea id="m-finance-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="Merchant name, type, months active, monthly volume..."></textarea>
+                <button class="mbtn" id="m-btn-finance" onclick="mRunFinance()" style="font-size:13px"><i class="ti ti-cash" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Check eligibility →</button>
+                <div id="m-finance-output" style="display:none;margin-top:10px"></div>
               </div>
             </div>
           </div>
@@ -803,16 +906,16 @@ function switchView(v){
 }
 
 // ── DESKTOP LOGIC ──
-const dTitles={dash:{en:'Good morning, Ahmed 👋',ar:'صباح الخير، أحمد 👋'},onboard:{en:'Onboard new merchant',ar:'تسجيل تاجر جديد'},pipe:{en:'My pipeline',ar:'قائمة عملائي'},ai:{en:'AI Assistant',ar:'المساعد الذكي'}};
-const dSubs={dash:{en:'Tuesday 19 May · Riyadh Region',ar:'الثلاثاء 19 مايو · منطقة الرياض'},onboard:{en:'Al-Noor Bakery · Step 2 of 4',ar:'مخبز النور · الخطوة 2 من 4'},pipe:{en:'4 active merchants',ar:'4 تجار نشطون'},ai:{en:'Powered by HALA intelligence',ar:'مدعوم بذكاء HALA'}};
+const dTitles={dash:{en:'Good morning, Ahmed 👋',ar:'صباح الخير، أحمد 👋'},onboard:{en:'Onboard new merchant',ar:'تسجيل تاجر جديد'},pipe:{en:'My pipeline',ar:'قائمة عملائي'},ai:{en:'AI Assistant',ar:'المساعد الذكي'},perf:{en:'My performance',ar:'أدائي'}};
+const dSubs={dash:{en:'Tuesday 19 May · Riyadh Region',ar:'الثلاثاء 19 مايو · منطقة الرياض'},onboard:{en:'Al-Noor Bakery · Step 2 of 4',ar:'مخبز النور · الخطوة 2 من 4'},pipe:{en:'4 active merchants',ar:'4 تجار نشطون'},ai:{en:'Powered by HALA intelligence',ar:'مدعوم بذكاء HALA'},perf:{en:'8 months active · Riyadh Region',ar:'8 أشهر نشاط · منطقة الرياض'}};
 function dShow(s){
-  ['dash','onboard','pipe','ai'].forEach(x=>{const el=document.getElementById('d-'+x);if(el)el.style.display=x===s?'block':'none'});
+  ['dash','onboard','pipe','ai','perf'].forEach(x=>{const el=document.getElementById('d-'+x);if(el)el.style.display=x===s?'block':'none'});
   const dProd=document.getElementById('d-products');
   if(dProd)dProd.style.display=s==='dash'?'block':'none';
   document.getElementById('d-title').textContent=dTitles[s][lang];
   document.getElementById('d-sub').textContent=dSubs[s][lang];
-  ['ni-dash','ni-onboard','ni-pipe','ni-ai'].forEach((id,i)=>{
-    const el=document.getElementById(id);if(el)el.classList.toggle('active',['dash','onboard','pipe','ai'][i]===s);
+  ['ni-dash','ni-onboard','ni-pipe','ni-ai','ni-perf'].forEach((id,i)=>{
+    const el=document.getElementById(id);if(el)el.classList.toggle('active',['dash','onboard','pipe','ai','perf'][i]===s);
   });
 }
 function dShowHint(){document.getElementById('d-hint').style.display='block'}
@@ -854,7 +957,7 @@ function dSendFull(t){const inp=document.getElementById('d-inp-full');t=t||inp.v
 const GROQ_API_KEY = 'PASTE_YOUR_GROQ_KEY_HERE';
 
 function setMode(m){
-  ['profiler','compliance','objection','pitch','rewards'].forEach(x=>{
+  ['profiler','compliance','objection','pitch','rewards','finance'].forEach(x=>{
     const el=document.getElementById('mode-'+x);
     if(el)el.style.display=x===m?'block':'none';
     const tab=document.getElementById('tab-'+x);
@@ -863,11 +966,11 @@ function setMode(m){
 }
 
 function setModeM(m){
-  ['m-profiler','m-compliance','m-objection','m-pitch','m-rewards'].forEach(x=>{
+  ['m-profiler','m-compliance','m-objection','m-pitch','m-rewards','m-finance'].forEach(x=>{
     const el=document.getElementById(x);
     if(el)el.style.display=x==='m-'+m?'block':'none';
   });
-  ['m-tab-profiler','m-tab-compliance','m-tab-objection','m-tab-pitch','m-tab-rewards'].forEach(x=>{
+  ['m-tab-profiler','m-tab-compliance','m-tab-objection','m-tab-pitch','m-tab-rewards','m-tab-finance'].forEach(x=>{
     const el=document.getElementById(x);
     if(el)el.className='mode-tab'+(x==='m-tab-'+m?' active':'');
   });
@@ -1071,6 +1174,42 @@ WHAT NOT TO SAY: [common agent mistake]
 Keep it field-ready. The agent is in front of the merchant right now.`;
 
 function rewardsFill(t){['rewards-input','m-rewards-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
+function financeFill(t){['finance-input','m-finance-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
+function runFinance(){const v=document.getElementById('finance-input').value.trim();if(!v)return;callGroq(SYS_FINANCE,v,'finance-output','btn-finance');}
+function mRunFinance(){const v=document.getElementById('m-finance-input').value.trim();if(!v)return;callGroq(SYS_FINANCE,v,'m-finance-output','m-btn-finance');}
+
+const SYS_FINANCE=`You are HALA's financing qualification AI. HALA Financing provides working capital loans for MSMEs and freelancers in Saudi Arabia. Financing decisions are based on live business performance using POS and payment history rather than traditional credit scores.
+
+HALA Financing eligibility criteria (approximate):
+- Minimum 3 months active with HALA
+- Minimum average monthly transaction volume of SAR 15,000
+- Consistent usage with no major gaps
+- No pending compliance issues
+- Loan amounts typically range from SAR 10,000 to SAR 500,000
+- Repayment is automatic from daily transaction volume (10 to 20% of daily sales)
+- Decision within 24 to 48 hours, no branch visit needed
+
+Given a merchant's details, output:
+FINANCING ELIGIBILITY CHECK
+Merchant: [name/type]
+Months active: [number]
+Monthly volume: [SAR amount]
+Eligibility status: [LIKELY ELIGIBLE / BORDERLINE / NOT YET ELIGIBLE]
+
+ESTIMATED OFFER:
+Loan range: [SAR min to max based on volume]
+Repayment method: [percentage of daily sales]
+Estimated decision time: [hours]
+
+WHY THEY QUALIFY (or don't):
+[2-3 sentences on the reasoning]
+
+WHAT THE AGENT SHOULD SAY:
+[Exact natural sentence to introduce financing to this merchant. Make it feel like an opportunity, not a sales pitch. Mention the specific SAR amount and that repayment comes automatically from their daily sales so there is no manual payment burden.]
+
+UPSELL TIMING:
+[Best moment to bring this up: during the visit, at activation, or after first month of transactions]`;
+
 function runRewards(){const v=document.getElementById('rewards-input').value.trim();if(!v)return;callGroq(SYS_REWARDS,v,'rewards-output','btn-rewards');}
 function mRunRewards(){const v=document.getElementById('m-rewards-input').value.trim();if(!v)return;callGroq(SYS_REWARDS,v,'m-rewards-output','m-btn-rewards');}
 function runPitch(){const v=document.getElementById('pitch-input').value.trim();if(!v)return;callGroq(SYS_PITCH,v,'pitch-output','btn-pitch');}
