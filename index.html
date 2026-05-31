@@ -330,7 +330,7 @@ nav.snav{flex:1;padding:8px}
         <div class="d-topbar">
           <div>
             <div class="dt-title" id="d-title" data-en="Good morning, Ahmed 👋" data-ar="صباح الخير، أحمد 👋">Good morning, Ahmed 👋</div>
-            <div class="dt-sub" id="d-sub" data-en="Tuesday 19 May · Riyadh Region" data-ar="الثلاثاء 19 مايو · منطقة الرياض">Tuesday 19 May · Riyadh Region</div>
+            <div class="dt-sub" id="d-sub">Tuesday 19 May · Riyadh Region</div>
           </div>
           <div class="dt-pill" data-en="4 tasks today" data-ar="4 مهام اليوم">4 tasks today</div>
           <i class="ti ti-bell" style="font-size:20px;color:var(--muted);cursor:pointer"></i>
@@ -370,15 +370,19 @@ nav.snav{flex:1;padding:8px}
                 </div>
                 <div style="background:var(--bg);border-radius:10px;padding:12px 13px;border:1px solid var(--border)">
                   <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px"><div style="width:28px;height:28px;background:#FFEBEE;border-radius:7px;display:flex;align-items:center;justify-content:center"><i class="ti ti-cash" style="font-size:14px;color:#C62828"></i></div><span style="font-size:12px;font-weight:500;color:var(--text)">HALA Financing</span><span style="margin-left:auto;font-size:10px;background:#FFEBEE;color:#C62828;padding:2px 7px;border-radius:5px">New</span></div>
-                  <div style="font-size:11px;color:var(--muted);line-height:1.5">Working capital loans for MSMEs and freelancers. No branch visit needed.</div>
+                  <div style="font-size:11px;color:var(--muted);line-height:1.5">Working capital loans and BNPL for MSMEs and freelancers. Decision in 24 hours.</div>
                 </div>
                 <div style="background:var(--bg);border-radius:10px;padding:12px 13px;border:1px solid var(--border)">
                   <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px"><div style="width:28px;height:28px;background:#FFF8E1;border-radius:7px;display:flex;align-items:center;justify-content:center"><i class="ti ti-star" style="font-size:14px;color:#F57F17"></i></div><span style="font-size:12px;font-weight:500;color:var(--text)">HALA Rewards</span></div>
                   <div style="font-size:11px;color:var(--muted);line-height:1.5">Cashiers earn points on every transaction. Redeemable for cash credits and upgrades.</div>
                 </div>
+                <div style="background:var(--bg);border-radius:10px;padding:12px 13px;border:1px solid var(--border);grid-column:span 2">
+                  <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px"><div style="width:28px;height:28px;background:#E3F2FD;border-radius:7px;display:flex;align-items:center;justify-content:center"><i class="ti ti-truck" style="font-size:14px;color:#1565C0"></i></div><span style="font-size:12px;font-weight:500;color:var(--text)">HALA Logistics</span><span style="margin-left:auto;font-size:10px;background:#E3F2FD;color:#1565C0;padding:2px 7px;border-radius:5px">Bundle</span></div>
+                  <div style="font-size:11px;color:var(--muted);line-height:1.5">Last-mile delivery and ops management for merchants who sell physical goods. Pitch as a payments plus logistics bundle for maximum value.</div>
+                </div>
               </div>
               <div style="margin-top:12px;background:#E8F5EE;border-radius:9px;padding:10px 13px;font-size:11px;color:#0F6E46;line-height:1.6">
-                <strong>142,000+ merchants</strong> trust HALA. Processing over <strong>$8 billion</strong> in annual transactions. Licensed by SAMA and part of Saudi Vision 2030.
+                <strong>150,000+ merchants</strong> trust HALA across Saudi Arabia, UAE, and Egypt. Processing over <strong>$8 billion</strong> in annual transactions. Licensed by SAMA and aligned with Vision 2030's cashless economy goal.
               </div>
             </div>
 
@@ -522,6 +526,9 @@ nav.snav{flex:1;padding:8px}
                   <button class="chip" onclick="pitchFill('Restaurant owner in Riyadh, currently uses cash and manual billing, 20 staff, busy lunch crowd, no POS yet')">Cash-only restaurant</button>
                   <button class="chip" onclick="pitchFill('Small supermarket in Jeddah, uses a basic old POS, owner complains about slow settlement from current provider')">Unhappy with POS</button>
                   <button class="chip" onclick="pitchFill('New ladies salon in Riyadh, just opened 2 months ago, wants to accept card payments and track daily sales')">New salon just opened</button>
+                  <button class="chip" onclick="pitchFill('Electronics shop in Riyadh, sells phones and laptops, customers often ask to pay in instalments, no BNPL offered yet')">Electronics BNPL</button>
+                  <button class="chip" onclick="pitchFill('Grocery store in Riyadh that delivers to apartments, owner uses WhatsApp for orders, no delivery management system')">Grocery with delivery</button>
+                  <button class="chip" onclick="pitchFill('Freelance photographer in Jeddah, invoices clients manually, no digital payment method, has freelance permit')">Freelancer</button>
                 </div>
                 <textarea id="pitch-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Auto parts shop in Dammam, 15 staff, owner uses Excel for inventory, no digital payments yet..."></textarea>
                 <button class="btn-primary" style="width:100%" onclick="runPitch()" id="btn-pitch"><i class="ti ti-speakerphone" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Build my pitch →</button>
@@ -534,6 +541,8 @@ nav.snav{flex:1;padding:8px}
                   <button class="chip" onclick="profilerFill('Small coffee shop in Al Olaya Riyadh, owner is Khalid Al-Harbi, sells coffee and light meals, 8 staff, est 2021')">Coffee shop</button>
                   <button class="chip" onclick="profilerFill('Ladies fashion boutique in Jeddah, sells abayas and modest wear, owner is Mona Al-Zahrani, 3 staff')">Fashion boutique</button>
                   <button class="chip" onclick="profilerFill('Auto spare parts wholesale in Dammam, owner Abdullah Al-Qahtani, 15 staff, established 2018, B2B focus')">Auto parts</button>
+                  <button class="chip" onclick="profilerFill('Freelance graphic designer in Riyadh, solo, works from home, invoices clients monthly, no CR, has freelance permit')">Freelancer designer</button>
+                  <button class="chip" onclick="profilerFill('Small grocery store Riyadh, owner Faisal, 3 staff, sells fresh produce and dairy, delivers to nearby apartments')">Grocery with delivery</button>
                 </div>
                 <textarea id="profiler-input" class="chat-input" rows="2" style="width:100%;margin-bottom:8px" placeholder="e.g. Small grocery in Riyadh, owner is Faisal, sells fresh produce and dairy, 5 staff..."></textarea>
                 <button class="btn-primary" style="width:100%" onclick="runProfiler()" id="btn-profiler"><i class="ti ti-sparkles" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i><span data-en="Build merchant profile →" data-ar="بناء ملف التاجر →">Build merchant profile →</span></button>
@@ -627,7 +636,7 @@ nav.snav{flex:1;padding:8px}
   <div class="mobile-wrap" id="view-mobile">
     <div class="phone-shell">
       <div class="phone-notch"><div class="notch-pill"></div></div>
-      <div class="phone-status"><span>9:41</span><span><i class="ti ti-wifi" style="font-size:11px"></i> <i class="ti ti-battery-2" style="font-size:11px"></i></span></div>
+      <div class="phone-status"><span id="m-clock">9:41</span><span><i class="ti ti-wifi" style="font-size:11px"></i> <i class="ti ti-battery-2" style="font-size:11px"></i></span></div>
       <div class="m-screen">
 
         <!-- HOME -->
@@ -637,8 +646,8 @@ nav.snav{flex:1;padding:8px}
               <div class="mh-logo"><div class="mh-lm">H</div>HALA Agent</div>
               <i class="ti ti-bell" style="font-size:20px;color:rgba(255,255,255,0.8);cursor:pointer"></i>
             </div>
-            <div class="mh-greet" data-en="Good morning, Ahmed 👋" data-ar="صباح الخير، أحمد 👋">Good morning, Ahmed 👋</div>
-            <div class="mh-sub" data-en="Tuesday, 19 May · Riyadh Region" data-ar="الثلاثاء، 19 مايو · منطقة الرياض">Tuesday, 19 May · Riyadh Region</div>
+            <div class="mh-greet" id="m-greeting">Good morning, Ahmed 👋</div>
+            <div class="mh-sub" id="m-date-sub">Tuesday, 19 May · Riyadh Region</div>
             <div class="mh-stats">
               <div class="mhstat"><div class="mhstat-v">12</div><div class="mhstat-l" data-en="Onboarded" data-ar="مُسجَّلون">Onboarded</div></div>
               <div class="mhstat"><div class="mhstat-v">84K</div><div class="mhstat-l" data-en="SAR GMV" data-ar="ريال GMV">SAR GMV</div></div>
@@ -665,6 +674,21 @@ nav.snav{flex:1;padding:8px}
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('pipe')"><i class="ti ti-users" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="My pipeline" data-ar="قائمة عملائي">My pipeline</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="4 active merchants" data-ar="4 تجار نشطون">4 active merchants</div></div>
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('perf')"><i class="ti ti-chart-bar" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="Performance" data-ar="الأداء">Performance</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="View stats" data-ar="عرض الإحصاءات">View stats</div></div>
             </div><!-- end grid -->
+
+            <!-- MOBILE PRODUCT SUITE -->
+            <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em" data-en="WHAT YOU CAN SELL" data-ar="ما يمكنك بيعه">WHAT YOU CAN SELL</div>
+            <div style="background:var(--card);border-radius:13px;border:1px solid var(--border);overflow:hidden;margin-bottom:10px">
+              <div style="padding:10px 13px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:9px"><div style="width:26px;height:26px;background:#E8F5EE;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-device-tablet" style="font-size:13px;color:#1B8A5A"></i></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text)">HALA POS</div><div style="font-size:10px;color:var(--muted)">Card terminals, instant settlement, Apple Pay</div></div><span style="font-size:9px;background:#E8F5EE;color:#1B8A5A;padding:2px 6px;border-radius:5px;font-weight:500">Best seller</span></div>
+              <div style="padding:10px 13px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:9px"><div style="width:26px;height:26px;background:#E3F2FD;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-wallet" style="font-size:13px;color:#1565C0"></i></div><div><div style="font-size:12px;font-weight:600;color:var(--text)">HALA Pay</div><div style="font-size:10px;color:var(--muted)">Wallet, SADAD, payment links</div></div></div>
+              <div style="padding:10px 13px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:9px"><div style="width:26px;height:26px;background:#F3E5F5;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-receipt" style="font-size:13px;color:#6A1B9A"></i></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text)">HALA Cashier</div><div style="font-size:10px;color:var(--muted)">Inventory, invoicing, accounting</div></div><span style="font-size:9px;background:#FFF8E1;color:#E65100;padding:2px 6px;border-radius:5px;font-weight:500">ZATCA</span></div>
+              <div style="padding:10px 13px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:9px"><div style="width:26px;height:26px;background:#E8F5EE;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-building-bank" style="font-size:13px;color:#1B8A5A"></i></div><div><div style="font-size:12px;font-weight:600;color:var(--text)">Business Account</div><div style="font-size:10px;color:var(--muted)">Digital banking, corporate cards</div></div></div>
+              <div style="padding:10px 13px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:9px"><div style="width:26px;height:26px;background:#FFEBEE;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-cash" style="font-size:13px;color:#C62828"></i></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text)">HALA Financing</div><div style="font-size:10px;color:var(--muted)">Working capital loans + BNPL</div></div><span style="font-size:9px;background:#FFEBEE;color:#C62828;padding:2px 6px;border-radius:5px;font-weight:500">New</span></div>
+              <div style="padding:10px 13px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:9px"><div style="width:26px;height:26px;background:#FFF8E1;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-star" style="font-size:13px;color:#F57F17"></i></div><div><div style="font-size:12px;font-weight:600;color:var(--text)">HALA Rewards</div><div style="font-size:10px;color:var(--muted)">Points per transaction, redeemable</div></div></div>
+              <div style="padding:10px 13px;display:flex;align-items:center;gap:9px"><div style="width:26px;height:26px;background:#E3F2FD;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-truck" style="font-size:13px;color:#1565C0"></i></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text)">HALA Logistics</div><div style="font-size:10px;color:var(--muted)">Last-mile delivery for physical goods</div></div><span style="font-size:9px;background:#E3F2FD;color:#1565C0;padding:2px 6px;border-radius:5px;font-weight:500">Bundle</span></div>
+            </div>
+            <div style="background:#E8F5EE;border-radius:10px;padding:10px 13px;font-size:11px;color:#0F6E46;line-height:1.6;margin-bottom:12px">
+              <strong>150,000+ merchants</strong> across Saudi Arabia, UAE and Egypt. Processing over <strong>$8 billion</strong> annually. SAMA licensed. Vision 2030 aligned.
+            </div>
             <div style="height:12px"></div>
           </div><!-- end scroll area -->
           <div class="m-bnav" style="flex-shrink:0">
@@ -805,6 +829,8 @@ nav.snav{flex:1;padding:8px}
                   <button class="chip" onclick="pitchFill('Restaurant in Riyadh, uses cash only, 20 staff, no POS yet')">Cash-only restaurant</button>
                   <button class="chip" onclick="pitchFill('Supermarket in Jeddah, old POS, unhappy with slow settlement')">Unhappy with POS</button>
                   <button class="chip" onclick="pitchFill('New ladies salon in Riyadh, just opened, wants card payments')">New salon</button>
+                  <button class="chip" onclick="pitchFill('Electronics shop Riyadh, customers ask for instalments, no BNPL yet')">Electronics BNPL</button>
+                  <button class="chip" onclick="pitchFill('Freelance photographer Jeddah, has freelance permit, invoices clients manually')">Freelancer</button>
                 </div>
                 <textarea id="m-pitch-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="Business type, size, current setup, known pain points..."></textarea>
                 <button class="mbtn" id="m-btn-pitch" onclick="mRunPitch()" style="font-size:13px"><i class="ti ti-speakerphone" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Build my pitch →</button>
@@ -817,6 +843,8 @@ nav.snav{flex:1;padding:8px}
                   <button class="chip" onclick="profilerFill('Small coffee shop in Al Olaya Riyadh, owner Khalid, 8 staff, est 2021')">Coffee shop</button>
                   <button class="chip" onclick="profilerFill('Ladies fashion boutique Jeddah, sells abayas, owner Mona, 3 staff')">Fashion boutique</button>
                   <button class="chip" onclick="profilerFill('Auto spare parts wholesale Dammam, owner Abdullah, 15 staff, est 2018')">Auto parts</button>
+                  <button class="chip" onclick="profilerFill('Freelance graphic designer Riyadh, solo, has freelance permit, no CR, invoices clients monthly')">Freelancer</button>
+                  <button class="chip" onclick="profilerFill('Grocery store Riyadh, delivers to apartments, 3 staff, wants delivery management')">Grocery delivery</button>
                 </div>
                 <textarea id="m-profiler-input" class="mfi" rows="2" style="margin-bottom:8px" placeholder="e.g. Small grocery in Riyadh, owner Faisal, 5 staff..."></textarea>
                 <button class="mbtn" id="m-btn-profiler" onclick="mRunProfiler()" style="font-size:13px"><i class="ti ti-sparkles" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Build merchant profile →</button>
@@ -958,6 +986,7 @@ function setLang(l){
     el.placeholder=el.getAttribute('data-'+l+'-placeholder')||el.getAttribute('data-en-placeholder');
   });
   refreshSceneText();
+  if(typeof updateDateTime === 'function') updateDateTime();
 }
 
 // ── STORY ──
@@ -965,7 +994,7 @@ const scenes=[
   {tag:{en:'The problem',ar:'المشكلة'},title:{en:'HALA agents are losing merchants in the field',ar:'وكلاء HALA يخسرون التجار في الميدان'},desc:{en:'A field agent visits a merchant. They collect info on paper, WhatsApp details to the office, wait for KYC approval, follow up days later. By then the merchant has gone cold, or already signed with a competitor.',ar:'يزور الوكيل الميداني التاجر، يجمع المعلومات على ورق، يرسل التفاصيل عبر واتساب، ينتظر موافقة التحقق من الهوية، ثم يتابع بعد أيام. في تلك الأثناء، فقد التاجر اهتمامه أو تعاقد مع منافس.'},badge:{type:'pain',en:'Avg onboarding time: 3–5 days. Merchant drop-off: ~40%',ar:'متوسط وقت التسجيل: 3–5 أيام. معدل التراجع: ~40%'}},
   {tag:{en:'The broken workflow',ar:'سير العمل المكسور'},title:{en:'Agents juggle 4 tools to complete 1 task',ar:'الوكلاء يستخدمون 4 أدوات لإنجاز مهمة واحدة'},desc:{en:'WhatsApp for docs. A browser portal for KYC. Excel for pipeline. Phone calls for compliance questions. Every hand-off is a delay. Every delay is a lost deal.',ar:'واتساب للمستندات. بوابة متصفح للتحقق. إكسل لقائمة العملاء. مكالمات هاتفية لأسئلة الامتثال. كل تحويل تأخير، وكل تأخير صفقة ضائعة.'},badge:{type:'pain',en:'Avg agent uses 4 separate tools per merchant onboarding',ar:'يستخدم الوكيل 4 أدوات منفصلة لتسجيل كل تاجر'}},
   {tag:{en:'The fix',ar:'الحل'},title:{en:'One unified agent app, everything in one place',ar:'تطبيق وكيل موحد، كل شيء في مكان واحد'},desc:{en:'This prototype shows what the unified HALA Agent experience looks like. Real-time KYC guided by AI. Pipeline visible at a glance. Compliance checks inside the flow, not after it.',ar:'يوضح هذا النموذج كيف تبدو تجربة وكيل HALA الموحدة. التحقق من الهوية في الوقت الفعلي بتوجيه من الذكاء الاصطناعي. قائمة العملاء بنظرة واحدة. فحوصات الامتثال داخل التدفق لا بعده.'},badge:{type:'fix',en:'Target: onboarding completed in under 20 minutes, in the field',ar:'الهدف: إتمام التسجيل في أقل من 20 دقيقة في الميدان'}},
-  {tag:{en:'The result',ar:'النتيجة'},title:{en:'Faster activation. Higher GMV. Better agent retention.',ar:'تفعيل أسرع. حجم معاملات أعلى. احتفاظ أفضل بالوكلاء.'},desc:{en:'When agents have a tool built for their workflow, conversion goes up, ramp time for new agents goes down, and HALA captures merchants before competitors do. This is the 0-to-1 product this role owns.',ar:'عندما يمتلك الوكلاء أداة مبنية لسير عملهم، ترتفع نسبة التحويل، يقل وقت تأهيل الوكلاء الجدد، وتستحوذ HALA على التجار قبل المنافسين. هذا هو المنتج الذي يمتلكه هذا الدور من الصفر.'},badge:{type:'fix',en:'Projected: 40% drop-off reduction, 60% faster onboarding',ar:'المتوقع: تقليل التراجع بنسبة 40%، تسريع التسجيل بنسبة 60%'}}
+  {tag:{en:'The result',ar:'النتيجة'},title:{en:'Faster activation. Higher GMV. A platform built to scale regionally.',ar:'تفعيل أسرع. حجم معاملات أعلى. منصة مبنية للتوسع الإقليمي.'},desc:{en:'When agents have a tool built for their workflow, conversion goes up, ramp time for new agents drops, and HALA captures merchants before competitors do. This platform also scales to UAE and Egypt as HALA expands, and directly supports Vision 2030\'s cashless economy goal. This is the 0-to-1 product this role owns.',ar:'عندما يمتلك الوكلاء أداة مبنية لسير عملهم، ترتفع نسبة التحويل، يقل وقت تأهيل الوكلاء الجدد، وتستحوذ HALA على التجار قبل المنافسين. هذه المنصة قابلة للتوسع إلى الإمارات ومصر مع نمو HALA، وتدعم مباشرة هدف رؤية 2030 للاقتصاد غير النقدي.'},badge:{type:'fix',en:'150,000+ merchants · UAE · Saudi · Egypt · Vision 2030 aligned',ar:'150,000+ تاجر · الإمارات · السعودية · مصر · متوافق مع رؤية 2030'}}
 ];
 let curScene=0;
 function goScene(i){
@@ -997,12 +1026,20 @@ function switchView(v){
 
 // ── DESKTOP LOGIC ──
 const dTitles={dash:{en:'Good morning, Ahmed 👋',ar:'صباح الخير، أحمد 👋'},onboard:{en:'Onboard new merchant',ar:'تسجيل تاجر جديد'},pipe:{en:'My pipeline',ar:'قائمة عملائي'},ai:{en:'AI Assistant',ar:'المساعد الذكي'},perf:{en:'My performance',ar:'أدائي'}};
-const dSubs={dash:{en:'Tuesday 19 May · Riyadh Region',ar:'الثلاثاء 19 مايو · منطقة الرياض'},onboard:{en:'Al-Noor Bakery · Step 2 of 4',ar:'مخبز النور · الخطوة 2 من 4'},pipe:{en:'4 active merchants',ar:'4 تجار نشطون'},ai:{en:'Powered by HALA intelligence',ar:'مدعوم بذكاء HALA'},perf:{en:'8 months active · Riyadh Region',ar:'8 أشهر نشاط · منطقة الرياض'}};
+function getDashGreeting(){
+  const h=new Date().getHours();
+  if(h<12)return{en:'Good morning, Ahmed 👋',ar:'صباح الخير، أحمد 👋'};
+  if(h<17)return{en:'Good afternoon, Ahmed 👋',ar:'مساء الخير، أحمد 👋'};
+  return{en:'Good evening, Ahmed 👋',ar:'مساء النور، أحمد 👋'};
+}
+const dSubs={dash:{en:'Loading date...',ar:'جارٍ تحميل التاريخ...'},onboard:{en:'Al-Noor Bakery · Step 2 of 4',ar:'مخبز النور · الخطوة 2 من 4'},pipe:{en:'4 active merchants',ar:'4 تجار نشطون'},ai:{en:'Powered by HALA intelligence',ar:'مدعوم بذكاء HALA'},perf:{en:'8 months active · Riyadh Region',ar:'8 أشهر نشاط · منطقة الرياض'}};
 function dShow(s){
   ['dash','onboard','pipe','ai','perf'].forEach(x=>{const el=document.getElementById('d-'+x);if(el)el.style.display=x===s?'block':'none'});
   const dProd=document.getElementById('d-products');
   if(dProd)dProd.style.display=s==='dash'?'block':'none';
-  document.getElementById('d-title').textContent=dTitles[s][lang];
+  const greeting = getDashGreeting();
+  const title = s==='dash' ? greeting[lang] : (dTitles[s]?.[lang] || dTitles[s]?.en);
+  document.getElementById('d-title').textContent = title;
   document.getElementById('d-sub').textContent=dSubs[s][lang];
   ['ni-dash','ni-onboard','ni-pipe','ni-ai','ni-perf'].forEach((id,i)=>{
     const el=document.getElementById(id);if(el)el.classList.toggle('active',['dash','onboard','pipe','ai','perf'][i]===s);
@@ -1138,73 +1175,83 @@ function profilerFill(t){['profiler-input','m-profiler-input'].forEach(id=>{cons
 function complianceFill(t){['compliance-input','m-compliance-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
 function objectionFill(t){['objection-input','m-objection-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});}
 
-const SYS_PITCH=`You are HALA's sales coaching AI for field agents in Saudi Arabia. HALA is licensed by SAMA and serves 142,000+ SMEs processing over $8 billion in annual transactions. HALA's full product suite:
-- HALA POS: physical and Android-based card payment terminals with instant settlement
-- HALA Pay: digital wallet for transfers, SADAD bill payments, and payment links for online sales
-- HALA Cashier: smart ERP system covering inventory, invoicing, accounting records, and ZATCA-compliant electronic invoices for quarterly VAT filing
-- HALA Business Account: digital business banking with withdrawals, transfers, corporate cards
-- HALA Financing: working capital loans for MSMEs and freelancers (new)
-- HALA Rewards: cashiers earn reward points on every transaction, redeemable through the platform
-- HALA GO: turns any Android smartphone into a POS device instantly
+const SYS_PITCH=`You are HALA's sales coaching AI for field agents in Saudi Arabia. HALA is licensed by SAMA, serves 150,000+ SMEs across Saudi Arabia, UAE, and Egypt, and processes over $8 billion in annual transactions. HALA is Vision 2030 aligned. Full product suite:
+- HALA POS: physical and Android-based card payment terminals, instant settlement
+- HALA Pay: digital wallet, SADAD bill payments, payment links for online sales
+- HALA Cashier: smart ERP with inventory, invoicing, ZATCA-compliant e-invoices for VAT
+- HALA Business Account: digital banking, corporate cards, transfers
+- HALA Financing: working capital loans AND Buy Now Pay Later (BNPL) for merchants and their customers. Decision in 24 hours based on live transaction data
+- HALA Rewards: cashiers earn points per transaction, redeemable for cash credits
+- HALA Logistics: last-mile delivery and ops management for merchants selling physical goods. Always pitch as a bundle with POS for maximum value
+- HALA GO: turns any Android smartphone into a POS instantly
+
+IMPORTANT: Freelancers are a key target segment. If the merchant appears to be a freelancer or solo operator, recommend HALA Financing freelancer products and HALA Pay specifically.
 
 Given a merchant the agent is about to visit, output:
 MERCHANT SNAPSHOT
 Business: [type and description]
-Their likely pain: [2 specific pain points based on situation]
+Segment: [SME / Freelancer / Micro-business]
+Their likely pain: [2 specific pain points]
 HALA fit score: [HIGH/MEDIUM] ([one sentence why])
 
 OPENING LINE:
-[Exact first sentence — warm, specific to this merchant, not generic]
+[Exact first sentence, warm and specific to this merchant]
 
 YOUR PITCH (60 seconds):
-[3-4 sentences. Name specific HALA products that solve their exact problems. Include one concrete proof point like 142,000 merchants or $8B processed or ZATCA compliance.]
+[3-4 sentences tailored to this merchant. Name specific HALA products that solve their exact problems. Use a real proof point: 150,000 merchants, $8B processed, SAMA licensed, or Vision 2030.]
 
 BEST HALA PRODUCTS FOR THEM:
 - [Product]: [why it fits this merchant specifically]
 - [Product]: [why it fits]
-- [Product if relevant]
+- [Include Logistics if they sell physical goods]
 
 CREDIBILITY LINE:
-[One sentence the agent can say to build trust — use HALA's funding, merchant count, SAMA license, or Vision 2030 alignment]
+[One sentence using HALA's funding, scale, SAMA license, or Vision 2030 alignment]
 
 CLOSING ASK:
 [The specific ask: demo, signup, or follow-up visit]
 
 Keep it field-ready. The agent reads this on their phone before walking in.`;
 
-const SYS_PROFILER=`You are HALA's smart onboarding AI. HALA is a Saudi fintech serving 142,000+ SMEs, licensed by SAMA. Full product suite:
+const SYS_PROFILER=`You are HALA's smart onboarding AI. HALA serves 150,000+ SMEs across Saudi Arabia, UAE, and Egypt, licensed by SAMA. Full product suite:
 - HALA POS: card payment terminals
 - HALA Pay: digital wallet, SADAD, payment links
 - HALA Cashier: inventory, invoicing, ZATCA-compliant accounting ERP
 - HALA Business Account: digital banking, corporate cards
-- HALA Financing: MSME working capital loans
-- HALA Rewards: transaction-based reward points for cashiers
+- HALA Financing: working capital loans AND BNPL, decision in 24 hours based on live transaction data
+- HALA Rewards: transaction-based reward points
+- HALA Logistics: last-mile delivery for merchants selling physical goods
 - HALA GO: Android smartphone as POS
+
+SEGMENTS: SME merchant, Freelancer, Micro-business. Freelancers need National ID and freelance permit (tasreeh), NOT a CR number.
 
 Given a business description, output:
 MERCHANT PROFILE
 Business Name: [suggest if not given]
 Business Type: [category]
+Segment: [SME / Freelancer / Micro-business]
 Industry: [specific sector]
 Location: [city/region]
 Owner Name: [if provided]
 Estimated Staff: [number]
-Estimated Monthly Transactions: [rough estimate based on business type]
+Estimated Monthly Transactions: [rough SAR estimate]
 
 HALA Products Recommended:
-- [product + one-line reason why it fits this specific merchant]
+- [product + one-line reason for THIS specific merchant]
 - [product + one-line reason]
-- [product if relevant]
+- [include Logistics if they sell physical goods]
 
 HALA Rewards Estimate:
-[Based on transaction volume, estimate monthly reward points this merchant would earn]
+[Estimate monthly reward points and SAR value based on transaction volume]
 
 KYC Documents Required:
-- [list all docs required for Saudi Arabia for this business type]
+- [if Freelancer: National ID + freelance permit (tasreeh), no CR needed]
+- [if SME: CR number, owner national ID, 3-month bank statement]
+- [sector-specific: SFDA for food, municipality for gym, etc.]
 
-Compliance Notes: [SFDA, ZATCA, municipality, or other Saudi regulatory requirements specific to this business]
+Compliance Notes: [SFDA, ZATCA, municipality, or other Saudi regulatory flags]
 Estimated Onboarding Time: [days]
-Agent Tips: [2 practical tips specific to this merchant type]`;
+Agent Tips: [2 practical tips for this specific merchant and segment]`;
 
 const SYS_REWARDS=`You are HALA's rewards calculator AI. HALA Rewards is a program where merchants earn points based on transaction volume processed through HALA terminals and payment products. Points are redeemable through the HALA platform for cash credits, terminal upgrades, or fee reductions.
 
@@ -1252,7 +1299,7 @@ Action Required Before Submission:
 Risk Level: [LOW/MEDIUM/HIGH] ([one sentence reason])
 Keep it actionable.`;
 
-const SYS_OBJECTION=`You are HALA's sales coaching AI for field agents in Saudi Arabia. HALA offers POS terminals, HALA Pay wallet, SADAD integration, payment links, and analytics for SME merchants.
+const SYS_OBJECTION=`You are HALA's sales coaching AI for field agents in Saudi Arabia. HALA offers POS terminals, HALA Pay wallet, SADAD, payment links, HALA Cashier ERP, HALA Logistics for last-mile delivery, HALA Financing (working capital + BNPL), and HALA Rewards. HALA serves 150,000+ SMEs across Saudi Arabia, UAE, and Egypt, is SAMA licensed, and Vision 2030 aligned.
 Given a merchant objection, output:
 OBJECTION: [restate briefly]
 WHY THIS HAPPENS: [one sentence on the real underlying concern]
@@ -1270,7 +1317,11 @@ function mRunFinance(){const v=document.getElementById('m-finance-input').value.
 
 const SYS_FINANCE=`You are HALA's financing qualification AI. HALA Financing provides working capital loans for MSMEs and freelancers in Saudi Arabia. Financing decisions are based on live business performance using POS and payment history rather than traditional credit scores.
 
-HALA Financing eligibility criteria (approximate):
+HALA Financing has two products:
+1. Working Capital Loans: SAR 10,000 to 500,000, repaid automatically from daily sales (10-20%)
+2. BNPL (Buy Now Pay Later): for merchants in retail/electronics/fashion to offer their customers instalment payments. Drives higher ticket sales for the merchant.
+
+Eligibility criteria (approximate):
 - Minimum 3 months active with HALA
 - Minimum average monthly transaction volume of SAR 15,000
 - Consistent usage with no major gaps
@@ -1287,7 +1338,8 @@ Monthly volume: [SAR amount]
 Eligibility status: [LIKELY ELIGIBLE / BORDERLINE / NOT YET ELIGIBLE]
 
 ESTIMATED OFFER:
-Loan range: [SAR min to max based on volume]
+Working Capital: [SAR loan range based on volume]
+BNPL eligibility: [YES/NO — based on merchant type. YES for retail, electronics, fashion, restaurants]
 Repayment method: [percentage of daily sales]
 Estimated decision time: [hours]
 
@@ -1360,7 +1412,58 @@ document.addEventListener('DOMContentLoaded', function(){
   setMode('pitch');
   setModeM('pitch');
   dShow('dash');
+  updateDateTime();
+  setInterval(updateClock, 1000);
 });
+
+function updateClock(){
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  const timeStr = h+':'+m;
+  const el = document.getElementById('m-clock');
+  if(el) el.textContent = timeStr;
+}
+
+function updateDateTime(){
+  const now = new Date();
+  const days = {
+    en:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    ar:['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']
+  };
+  const months = {
+    en:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    ar:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر']
+  };
+  const day = now.getDay();
+  const date = now.getDate();
+  const month = now.getMonth();
+  const enStr = days.en[day]+' '+date+' '+months.en[month]+' · Riyadh Region';
+  const arStr = days.ar[day]+' '+date+' '+months.ar[month]+' · منطقة الرياض';
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+
+  // mobile clock
+  const clock = document.getElementById('m-clock');
+  if(clock) clock.textContent = h+':'+m;
+
+  // mobile date
+  const mDate = document.getElementById('m-date-sub');
+  if(mDate) mDate.textContent = lang==='ar' ? arStr : enStr;
+
+  // desktop subtitle — only update if on dash
+  const dSub = document.getElementById('d-sub');
+  if(dSub && dSub.textContent.includes('Region')) dSub.textContent = lang==='ar' ? arStr : enStr;
+
+  // mobile greeting
+  const greeting = getDashGreeting();
+  const mGreet = document.getElementById('m-greeting');
+  if(mGreet) mGreet.textContent = lang==='ar' ? greeting.ar : greeting.en;
+  if(dSubs && dSubs.dash){
+    dSubs.dash.en = enStr;
+    dSubs.dash.ar = arStr;
+  }
+}
 
 </script>
 <!-- ALWAYS VISIBLE FEEDBACK BUTTON -->
@@ -1377,7 +1480,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div style="font-size:18px;font-weight:500;color:var(--text);margin-bottom:10px">You have explored the full demo</div>
     <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:8px">You have used all 8 AI responses in this session.</div>
     <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px;background:var(--bg);border-radius:10px;padding:12px 14px;text-align:left">
-      This prototype was built by <strong style="color:var(--text)">Waqas Arshad</strong>, a Senior Product Manager with 10 years of experience across fintech, B2B SaaS, telecom and digital products.<br><br>
+      This prototype was built by <strong style="color:var(--text)">Waqas Arshad</strong>, a Senior Product Manager with 14 years of experience across fintech, B2B SaaS, telecom and digital products.<br><br>
       If you have feedback, questions, or would like to discuss this further, reach out directly.
     </div>
     <a href="mailto:waxas.arshad@gmail.com?subject=HALA Agent Demo&body=Hi Waqas,%0A%0AI explored your HALA Agent demo and would like to connect.%0A%0A" style="display:block;background:#1B8A5A;color:white;text-decoration:none;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:500;margin-bottom:10px;text-align:center"><i class="ti ti-mail" style="font-size:15px;vertical-align:-2px;margin-right:6px"></i>Get in touch with Waqas</a>
