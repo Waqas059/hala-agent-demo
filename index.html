@@ -663,7 +663,7 @@ nav.snav{flex:1;padding:8px}
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('onboard')"><i class="ti ti-user-plus" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="New merchant" data-ar="تاجر جديد">New merchant</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="Start onboarding" data-ar="ابدأ التسجيل">Start onboarding</div></div>
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('ai')"><i class="ti ti-robot" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="Ask anything" data-ar="اسأل أي شيء">Ask anything</div></div>
               <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('pipe')"><i class="ti ti-users" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="My pipeline" data-ar="قائمة عملائي">My pipeline</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="4 active merchants" data-ar="4 تجار نشطون">4 active merchants</div></div>
-              <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer"><i class="ti ti-chart-bar" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="Performance" data-ar="الأداء">Performance</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="View stats" data-ar="عرض الإحصاءات">View stats</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer" onclick="mGo('perf')"><i class="ti ti-chart-bar" style="font-size:22px;color:var(--g);display:block;margin-bottom:7px"></i><div style="font-size:13px;font-weight:600;color:var(--text)" data-en="Performance" data-ar="الأداء">Performance</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="View stats" data-ar="عرض الإحصاءات">View stats</div></div>
             </div>
           </div>
           </div>
@@ -719,10 +719,58 @@ nav.snav{flex:1;padding:8px}
             <span style="margin-left:auto;background:rgba(255,255,255,0.2);font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px" data-en="4 merchants" data-ar="4 تجار">4 merchants</span>
           </div>
           <div style="flex:1;overflow-y:auto">
-          <div class="mpi" onclick="mGo('onboard')"><div class="mpa">AN</div><div><div class="mpn" data-en="Al-Noor Bakery" data-ar="مخبز النور">Al-Noor Bakery</div><div class="mpb" data-en="Retail · Mohammed Al-Sayed" data-ar="تجزئة · محمد السيد">Retail · Mohammed Al-Sayed</div></div><span class="mps s-kyc" data-en="KYC pending" data-ar="بانتظار التحقق">KYC pending</span></div>
-          <div class="mpi"><div class="mpa" style="background:var(--blue)">SF</div><div><div class="mpn" data-en="Star Fitness Center" data-ar="مركز ستار للياقة">Star Fitness Center</div><div class="mpb" data-en="Services · Fahad" data-ar="خدمات · فهد">Services · Fahad</div></div><span class="mps s-rev" data-en="In review" data-ar="قيد المراجعة">In review</span></div>
-          <div class="mpi"><div class="mpa" style="background:var(--purple)">TG</div><div><div class="mpn" data-en="Tech Gulf Trading" data-ar="تك خليج للتجارة">Tech Gulf Trading</div><div class="mpb" data-en="Electronics · Sara" data-ar="إلكترونيات · سارة">Electronics · Sara</div></div><span class="mps s-new" data-en="New lead" data-ar="عميل جديد">New lead</span></div>
-          <div class="mpi" style="border-bottom:none"><div class="mpa" style="background:#2E7D32">NF</div><div><div class="mpn" data-en="Noor Fashion" data-ar="نور للأزياء">Noor Fashion</div><div class="mpb" data-en="Retail · Noura" data-ar="تجزئة · نورة">Retail · Noura</div></div><span class="mps s-act" data-en="Activated" data-ar="مفعّل">Activated</span></div>
+            <!-- churn alert -->
+            <div style="background:#FFEBEE;padding:10px 14px;display:flex;align-items:flex-start;gap:8px;border-bottom:1px solid #FFCDD2">
+              <i class="ti ti-alert-circle" style="font-size:15px;color:#C62828;flex-shrink:0;margin-top:1px"></i>
+              <div style="font-size:11px;color:#C62828;line-height:1.5" data-en="Noor Fashion has not processed a transaction in 8 days. Follow up today." data-ar="لم تُجرِ نور للأزياء أي معاملة منذ 8 أيام. تابع اليوم.">Noor Fashion has not processed a transaction in 8 days. Follow up today.</div>
+            </div>
+            <!-- AL-NOOR -->
+            <div style="padding:12px 14px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                <div class="mpa">AN</div>
+                <div style="flex:1"><div class="mpn" data-en="Al-Noor Bakery" data-ar="مخبز النور">Al-Noor Bakery</div><div class="mpb" data-en="Retail · Mohammed Al-Sayed" data-ar="تجزئة · محمد السيد">Retail · Mohammed Al-Sayed</div></div>
+                <span class="mps s-kyc" data-en="KYC pending" data-ar="بانتظار التحقق">KYC pending</span>
+              </div>
+              <div style="background:var(--bg);border-radius:7px;padding:7px 10px;font-size:11px;color:var(--muted);display:flex;gap:12px">
+                <span><i class="ti ti-file-x" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="CR docs missing" data-ar="مستندات مفقودة">CR docs missing</span></span>
+                <span style="margin-left:auto;color:#E65100;font-weight:500" data-en="Action needed" data-ar="يلزم إجراء">Action needed</span>
+              </div>
+            </div>
+            <!-- STAR FITNESS -->
+            <div style="padding:12px 14px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                <div class="mpa" style="background:var(--blue)">SF</div>
+                <div style="flex:1"><div class="mpn" data-en="Star Fitness Center" data-ar="مركز ستار للياقة">Star Fitness Center</div><div class="mpb" data-en="Services · Fahad" data-ar="خدمات · فهد">Services · Fahad</div></div>
+                <span class="mps s-rev" data-en="In review" data-ar="قيد المراجعة">In review</span>
+              </div>
+              <div style="background:var(--bg);border-radius:7px;padding:7px 10px;font-size:11px;color:var(--muted);display:flex;gap:12px">
+                <span><i class="ti ti-check" style="font-size:12px;vertical-align:-1px;margin-right:3px;color:#2E7D32"></i><span data-en="All docs submitted" data-ar="جميع المستندات مُقدَّمة">All docs submitted</span></span>
+              </div>
+            </div>
+            <!-- TECH GULF -->
+            <div style="padding:12px 14px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                <div class="mpa" style="background:var(--purple)">TG</div>
+                <div style="flex:1"><div class="mpn" data-en="Tech Gulf Trading" data-ar="تك خليج للتجارة">Tech Gulf Trading</div><div class="mpb" data-en="Electronics · Sara" data-ar="إلكترونيات · سارة">Electronics · Sara</div></div>
+                <span class="mps s-new" data-en="New lead" data-ar="عميل جديد">New lead</span>
+              </div>
+              <div style="background:var(--bg);border-radius:7px;padding:7px 10px;font-size:11px;color:var(--muted);display:flex;gap:12px">
+                <span><i class="ti ti-calendar" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="Visit today 4:30 PM" data-ar="زيارة اليوم 4:30 م">Visit today 4:30 PM</span></span>
+                <span style="margin-left:auto;color:#1565C0;font-weight:500;cursor:pointer" onclick="mGo('ai')" data-en="Build pitch →" data-ar="ابنِ العرض →">Build pitch →</span>
+              </div>
+            </div>
+            <!-- NOOR FASHION CHURN -->
+            <div style="padding:12px 14px;border:1px solid #FFCDD2;margin:10px 13px;border-radius:11px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                <div class="mpa" style="background:#2E7D32">NF</div>
+                <div style="flex:1"><div class="mpn" data-en="Noor Fashion" data-ar="نور للأزياء">Noor Fashion</div><div class="mpb" data-en="Retail · Noura" data-ar="تجزئة · نورة">Retail · Noura</div></div>
+                <span class="mps s-act" data-en="Activated" data-ar="مفعّل">Activated</span>
+              </div>
+              <div style="background:#FFEBEE;border-radius:7px;padding:7px 10px;font-size:11px;color:#C62828;display:flex;gap:12px;flex-wrap:wrap">
+                <span><i class="ti ti-alert-triangle" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="No transactions 8 days" data-ar="لا معاملات منذ 8 أيام">No transactions 8 days</span></span>
+                <span><i class="ti ti-trending-down" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i><span data-en="Volume -60%" data-ar="الحجم -60%">Volume -60%</span></span>
+              </div>
+            </div>
           </div>
           <div class="m-bnav" style="flex-shrink:0">
             <div class="mbn" onclick="mGo('home')"><i class="ti ti-home"></i><span data-en="Home" data-ar="الرئيسية">Home</span></div>
@@ -831,11 +879,51 @@ nav.snav{flex:1;padding:8px}
           </div>
         </div>
 
-      </div>
-    </div>
-  </div>
+        <!-- PERFORMANCE PAGE -->
+        <div class="m-page hidden" id="mp-perf">
+          <div style="background:var(--g);padding:15px 16px;color:white;display:flex;align-items:center;gap:10px;flex-shrink:0">
+            <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" onclick="mGo('home')"></i>
+            <div><div style="font-weight:600;font-size:15px" data-en="My performance" data-ar="أدائي">My performance</div><div style="font-size:11px;opacity:0.72;margin-top:2px" data-en="8 months active" data-ar="8 أشهر نشاط">8 months active</div></div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:13px 13px 8px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px">
+              <div style="background:var(--card);border-radius:11px;padding:12px;border:1px solid var(--border)"><div style="font-size:20px;font-weight:600;color:var(--text)">12</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="Onboarded this month" data-ar="مُسجَّلون هذا الشهر">Onboarded this month</div><div style="font-size:10px;color:var(--g);margin-top:3px;font-weight:500" data-en="↑ 3 vs last month" data-ar="↑ 3 مقارنة بالشهر الماضي">↑ 3 vs last month</div></div>
+              <div style="background:var(--card);border-radius:11px;padding:12px;border:1px solid var(--border)"><div style="font-size:20px;font-weight:600;color:var(--text)">94%</div><div style="font-size:10px;color:var(--muted);margin-top:2px" data-en="Activation rate" data-ar="معدل التفعيل">Activation rate</div><div style="font-size:10px;color:var(--g);margin-top:3px;font-weight:500" data-en="Top 10% of agents" data-ar="أفضل 10% من الوكلاء">Top 10% of agents</div></div>
+            </div>
+            <div style="background:var(--card);border-radius:11px;padding:13px;border:1px solid var(--border);margin-bottom:14px">
+              <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px" data-en="Onboarding trend" data-ar="اتجاه التسجيل">Onboarding trend</div>
+              <svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="none">
+                <defs><linearGradient id="mgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1B8A5A" stop-opacity="0.3"/><stop offset="100%" stop-color="#1B8A5A" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0,65 L37,58 L75,48 L112,52 L150,35 L187,40 L225,22 L262,14 L300,6 L300,80 L0,80 Z" fill="url(#mgr)"/>
+                <path d="M0,65 L37,58 L75,48 L112,52 L150,35 L187,40 L225,22 L262,14 L300,6" fill="none" stroke="#1B8A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="300" cy="6" r="3" fill="#1B8A5A"/>
+              </svg>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:4px"><span>Oct</span><span>Dec</span><span>Feb</span><span>Apr</span><span>May</span></div>
+            </div>
+            <div style="background:var(--card);border-radius:11px;padding:13px;border:1px solid var(--border);margin-bottom:14px">
+              <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px" data-en="Merchant health" data-ar="صحة التجار">Merchant health</div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                <div style="background:#E8F5E9;border-radius:9px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:600;color:#2E7D32">8</div><div style="font-size:10px;color:#2E7D32;margin-top:2px" data-en="Healthy" data-ar="بصحة جيدة">Healthy</div></div>
+                <div style="background:#FFF8E1;border-radius:9px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:600;color:#E65100">3</div><div style="font-size:10px;color:#E65100;margin-top:2px" data-en="At risk" data-ar="في خطر">At risk</div></div>
+                <div style="background:#FFEBEE;border-radius:9px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:600;color:#C62828">1</div><div style="font-size:10px;color:#C62828;margin-top:2px" data-en="Churning" data-ar="على وشك المغادرة">Churning</div></div>
+              </div>
+            </div>
+            <div style="background:var(--card);border-radius:11px;padding:13px;border-left:3px solid var(--g);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:8px">
+              <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:7px" data-en="PM product notes" data-ar="ملاحظات مدير المنتج">PM product notes</div>
+              <div style="font-size:11px;color:var(--muted);line-height:1.7" data-en="Key metrics from day 1: time to first transaction, 7 and 30-day retention, GMV per merchant by category, agent conversion rate by merchant type, drop-off at each onboarding step." data-ar="المقاييس الرئيسية من اليوم الأول: الوقت حتى أول معاملة، الاحتفاظ بعد 7 و30 يوم، حجم المعاملات لكل تاجر حسب الفئة.">Key metrics from day 1: time to first transaction, 7 and 30-day retention, GMV per merchant by category, agent conversion rate by merchant type, drop-off at each onboarding step.</div>
+            </div>
+          </div>
+          <div class="m-bnav" style="flex-shrink:0">
+            <div class="mbn" onclick="mGo('home')"><i class="ti ti-home"></i><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+            <div class="mbn" onclick="mGo('pipe')"><i class="ti ti-users"></i><span data-en="Pipeline" data-ar="عملاء">Pipeline</span></div>
+            <div class="mbn" onclick="mGo('onboard')"><i class="ti ti-user-plus"></i><span data-en="Onboard" data-ar="تسجيل">Onboard</span></div>
+            <div class="mbn" onclick="mGo('ai')"><i class="ti ti-robot"></i><span data-en="AI" data-ar="ذكاء">AI</span></div>
+          </div>
+        </div>
 
-</div><!-- end main-wrap -->
+      </div><!-- end m-screen -->
+    </div><!-- end phone-shell -->
+  </div><!-- end mobile-wrap -->
 
 
 
@@ -1247,11 +1335,11 @@ function mRunObjection(){
 
 // ── MOBILE LOGIC ──
 function mGo(p){
-  ['home','onboard','pipe','ai'].forEach(x=>{
+  ['home','onboard','pipe','ai','perf'].forEach(x=>{
     const el=document.getElementById('mp-'+x);
     if(el)el.classList.toggle('hidden',x!==p);
   });
-  const navMap={home:0,pipe:1,onboard:2,ai:3};
+  const navMap={home:0,pipe:1,onboard:2,ai:3,perf:0};
   document.querySelectorAll('.m-bnav').forEach(nav=>{
     nav.querySelectorAll('.mbn').forEach((btn,i)=>{
       btn.classList.toggle('active', i===navMap[p]);
