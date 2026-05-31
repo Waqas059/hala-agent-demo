@@ -195,8 +195,8 @@ nav.snav{flex:1;padding:8px}
 .notch-pill{background:#111;width:88px;height:20px;border-radius:12px}
 .phone-status{display:flex;justify-content:space-between;align-items:center;padding:6px 20px 2px;font-size:10px;font-weight:600;color:var(--text);background:var(--card)}
 .m-screen{height:620px;overflow:hidden;position:relative;background:var(--bg)}
-.m-page{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),opacity 0.35s ease;background:var(--bg)}
-.m-page.hidden{transform:translateX(20px);opacity:0;pointer-events:none}
+.m-page{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;display:flex;flex-direction:column;background:var(--bg)}
+.m-page.hidden{display:none}
 /* mobile header */
 .mhead{background:var(--g);padding:16px 18px 18px;color:white}
 .mh-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
@@ -1337,15 +1337,19 @@ function mRunObjection(){
 
 // ── MOBILE LOGIC ──
 function mGo(p){
-  ['home','onboard','pipe','ai','perf'].forEach(x=>{
+  const pages=['home','onboard','pipe','ai','perf'];
+  pages.forEach(x=>{
     const el=document.getElementById('mp-'+x);
     if(el)el.classList.toggle('hidden',x!==p);
   });
+  // only update nav items in the active page
+  const active=document.getElementById('mp-'+p);
+  if(!active)return;
+  const nav=active.querySelector('.m-bnav');
+  if(!nav)return;
   const navMap={home:0,pipe:1,onboard:2,ai:3,perf:0};
-  document.querySelectorAll('.m-bnav').forEach(nav=>{
-    nav.querySelectorAll('.mbn').forEach((btn,i)=>{
-      btn.classList.toggle('active', i===navMap[p]);
-    });
+  nav.querySelectorAll('.mbn').forEach((btn,i)=>{
+    btn.classList.toggle('active', i===navMap[p]);
   });
 }
 function mShowTip(){document.getElementById('m-tip').style.display='block';}
